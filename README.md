@@ -16,19 +16,39 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
 
 ## Supervised Learning
 
+In supervised machine learning, we're learning to create models that combine inputs to produce useful predictions on data, often previously unseen data. 
+
 ### Univariate Linear Regression
 
 This is Linear Regression with one variable, for instance: The price of houses given their size.
 
 #### Standard Notation & Terminology
 
-* x = "input" variable feature
-* y = "output" target feature
+* **Features** are the input variables describing our data
+  * Typically represented by the variables {x<sub>1</sub>, x<sub>2</sub>, x<sub>3</sub>, ..., x<sub>n</sub>}
+  * x = "input" variable feature
+* **label** is the output variable we're predicting
+  * Typically represented by the variable y
+  * y = "output" target feature
 * m = number of training examples
-* (x,y) = single training example
-* (x<sup>(i)</sup>,y<sup>(i)</sup>) = the i<sup>th</sup> training example
-* w, b = parameters, weights or coefficients
-* y-hat or ŷ = prediction or estimate
+* **Example** is one piece or instance of data
+  * a **Labeled Example** has {features, label}: (x,y)
+  * These labeled examples are used to train our model.
+  * (x,y) = single training example
+  * (x<sup>(i)</sup>,y<sup>(i)</sup>) = the i<sup>th</sup> training example
+* an **Unlabeled Example** has {features, ?}: (x,?)
+  * Used for making predictions on new data (inference)
+* **Model** maps examples to predicted labels
+  * Defined by internal parameters, which are learned
+  * w, b = parameters, weights or coefficients
+  * y-hat or ŷ or y' = prediction or estimate
+* **Training** means creating or learning the model. 
+  * a model gradually learns the relationships between features and labels
+* **Inference** means applying the trained model to unlabeled examples
+* A **regression** model predicts continuous values
+  * What is the value of a house?
+* A **classification** model predicts discrete values
+  * Is this an image of a dog, or a cat?
 
 #### Linear Regression Model
 
@@ -48,7 +68,7 @@ The formula above shows our predicted value, y-hat for the i<sup>th</sup> traini
 
 The question is: how do we find values for parameters w and b so that y-hat is close to the true target y<sup>i</sup>?
 
-When figuring out the cost-function, we calculate what is called the 'error' by subtracting our target feature from our prediction. We then work out the square of this deviation for every target-predictor pair in the training set, and finally sum all the squared errors of training samples in the data set up to m. It is important remember that we must compute the `average square error` instead of the total square error, we do this by dividing by m, but because of convention we use 'divides by 2 times m' which will make some of our later calculations neater. If we write our cost function as J of w,b, w and b are then our tunable parameters or weights, which we can use to reduce the cost of J of w,b.
+When figuring out the cost-function, we calculate what is called the 'squared error' or 'L<sub>2</sub> Loss' by subtracting our target feature from our prediction. We then work out the square of this deviation for every target-predictor pair in the training set, and finally sum all the squared errors of training samples in the data set up to m. It is important remember that we must compute the `average square error` instead of the total square error, we do this by dividing by m, but because of convention we use 'divides by 2 times m' which will make some of our later calculations neater. If we write our cost function as J of w,b, w and b are then our tunable parameters or weights, which we can use to reduce the cost of J of w,b.
 
 Squared Error Cost Function:
 
@@ -71,7 +91,7 @@ Gradient Descent is an algorithm which is used extensively in machine learning, 
 
 #### Implementing Gradient Descent
 
-On each step, w, the parameter, is updated to the old value of w minus Alpha times the term d/dw of the cos function J of wb. We are simply taking modifying our parameter w by taking the current value of w and adjusting it a small amount.
+On each step, w, the parameter, is updated to the old value of w minus Alpha times the term d/dw of the cost function J of wb. We are simply taking modifying our parameter w by taking the current value of w and adjusting it a small amount.
 
 w = w-α $\frac{d}{dw}$ J(w,b)
 
@@ -82,7 +102,7 @@ To break down the above equation from left to right:
 * assign the product from the RHS to the LHS variable called w
 * in this equation, Alpha or the symbol α, is called our learning rate
   * the learning rate is hoe aggressive the gradient descent step size is
-* the derivative term of the cost function J
+* the [derivative term](https://en.wikipedia.org/wiki/Derivative) of the cost function J
   * the direction in which we want to step our gradient descent
 
 We repeat the two steps shown in the equation until we reach a local minimum, also called convergence, which is when the values of w and b no longer change much in relation to their previous values.
