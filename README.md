@@ -1,6 +1,6 @@
 # Machine Learning
 
-Below are my notes on machine learning theory from [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google Machine Learning](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford Lectures](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [Practical Deep Learning for Coders](https://course.fast.ai/).
+Below are my notes on machine learning theory from [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford Lectures](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [Practical Deep Learning for Coders](https://course.fast.ai/).
 
 * Supervised Learning
   * Linear Regression Models
@@ -95,9 +95,7 @@ Gradient Descent is an algorithm which is used extensively in machine learning, 
 
 On each **gradient step**, w, the parameter, is updated to the old value of w minus Alpha times the term d/dw of the cost function J of wb. We are simply taking modifying our parameter w by taking the current value of w and adjusting it a small amount.
 
-w = w-α $\frac{d}{dw}$ J(w,b)
-
-b = b-α $\frac{d}{dw}$ J(w,b)
+w = w-α $\frac{d}{dw}$ J(w,b) and b = b-α $\frac{d}{dw}$ J(w,b)
 
 To break down the above equation from left to right:
 
@@ -116,6 +114,30 @@ In gradient descent, a batch is the total number of examples you use to calculat
 It is safe to say enormous batches tend not to carry much more predictive value than large batches. What we ideally want it to get the right gradient on average for much less computation. To achieve this we can employ Stochastic Gradient Descent, the term "stochastic" means we are sampling one example comprising each batch at random. While SGD works, it can be quite noisy.
 
 **Mini-batch Stochastic Gradient Descent** is a compromise between full-batch iteration and SGD where we sample between 10 and a 1000 examples chosen at random. Even though gradient descent so far has been focused on single features for simplicity's sake, it also works on multivariate feature sets.
+
+* Could compute gradient over entire data set on each step, but this turns out to be unnecessary
+* Computing gradient on small data samples works well
+  * On every step, get a new random sample
+* **Stochastic Gradient Descent**: one example at a time
+* **Mini-Batch Gradient Descent**: batches of 10-1000
+  * Loss & gradients are averaged over the batch
+
+## Tensorflow
+
+### What is TensorFlow?
+
+TensorFlow [documentation](https://tensorflow.org/) for more details.
+
+TensorFlow APIs are arranged hierarchically, with the high-level APIs built on the low-level APIs. Machine learning researchers use the low-level APIs to create and explore new machine learning algorithms.
+
+TensorFlow toolkit hierarchy
+
+* Estimators and tf.keras <-- high-level, object-oriented API
+* tf.layers, tf.losses, tf.metrics, ... <-- reusable libraries for common model communication
+* low-level API <-- extensive control
+* CPU, GPU, TPU <-- TensorFlow code runs on these platforms
+
+Along with TensorFlow, [NumPy](https://numpy.org/) is popularly used to simplify representing arrays and performing linear algebra operations along with [pandas](https://pandas.pydata.org/), which provides an easy way to represent datasets in memory.
 
 ## Convolutional Neural Networks for Vision Systems
 
