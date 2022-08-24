@@ -147,6 +147,32 @@ TensorFlow toolkit hierarchy
 
 Along with TensorFlow, [NumPy](https://numpy.org/) is popularly used to simplify representing arrays and performing linear algebra operations along with [pandas](https://pandas.pydata.org/), which provides an easy way to represent datasets in memory.
 
+## Generalization
+
+Just fitting our training data is not enough to do machine learning, in machine learning we're after generalization. If we specialize in hyper specificity, also called `over-fitting`, we risk having a model that is unable to cope with changes in data, for instance: a spam filter so precisely tuned that it doesn't pick up any new forms of spam mail.
+
+### What is a "Good" Model
+
+* Theoretically:
+  * Interesting field: [generalization theory](https://en.wikipedia.org/wiki/Generalization_(learning))
+  * Based on ideas of measuring model simplicity / complexity
+* Intuition: formalization of the principle of Ockam's Razor
+  * The less complex a model is, the more likely that a good empirical result is not just due to the peculiarities of our sample (A model should be as simple as possible)
+* Empirically:
+  * Asking: will our model do well on new samples of data?
+  * Evaluating: get a new sample of data-call it a test set
+  * Good performance on the test set is a useful indicator of good performance on the new data in general:
+    * If the test set is large enough
+    * If we don't cheat by using the test set over and over
+
+There are three basic assumptions in all of the above:
+
+1. We draw examples **independently and identically (i.i.d.)** at random from the distribution
+2. The distribution is **stationary**: it doesn't change over time
+3. We always pull from the **same distribution**: including training, validation and test sets
+
+It is important to remember that the above assumption **can** be violated, for instance in the case of 2. people can change their shopping behavior as seasons change, and case 3. tastes and fashions can change. 
+
 ## Convolutional Neural Networks for Vision Systems
 
 ### Image Classification
