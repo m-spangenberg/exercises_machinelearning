@@ -24,6 +24,8 @@ This is Linear Regression with one variable, for instance: The price of houses g
 
 #### Standard Notation & Terminology
 
+See more [machine learning glossary](https://developers.google.com/machine-learning/glossary)
+
 * **Features** are the input variables describing our data
   * Typically represented by the variables {x<sub>1</sub>, x<sub>2</sub>, x<sub>3</sub>, ..., x<sub>n</sub>}
   * x = "input" variable feature
@@ -68,9 +70,9 @@ The formula above shows our predicted value, y-hat for the i<sup>th</sup> traini
 
 The question is: how do we find values for parameters w and b so that y-hat is close to the true target y<sup>i</sup>?
 
-When figuring out the cost-function, we calculate what is called the 'squared error' or 'L<sub>2</sub> Loss' by subtracting our target feature from our prediction. We then work out the square of this deviation for every target-predictor pair in the training set, and finally sum all the squared errors of training samples in the data set up to m. It is important remember that we must compute the `average square error` instead of the total square error, we do this by dividing by m, but because of convention we use 'divides by 2 times m' which will make some of our later calculations neater. If we write our cost function as J of w,b, w and b are then our tunable parameters or weights, which we can use to reduce the cost of J of w,b.
+When figuring out the cost-function, we calculate what is called the 'squared error' or 'L<sub>2</sub> Loss' by subtracting our target feature from our prediction. We then work out the square of this deviation for every target-predictor pair in the training set, and finally sum all the squared errors of training samples in the data set up to m. It is important remember that we must compute the `average square error` instead of the total square error, we do this by dividing by m, but because of convention we use 'divides by 2 times m' which will make some of our later calculations neater. If we write our cost function as J of w,b, w and b are then our tunable parameters or weights, which we can use to reduce the cost of J of w,b. This process of minimizing loss is called **empirical risk minimization**.
 
-Squared Error Cost Function:
+Mean Squared Error Cost Function:
 
 J(w,b) = $\frac{1}{2m}$ $\sum_{i=1}^{m}$ (ŷ<sup>(i)</sup> - y<sup>(i)</sup>)<sup>2</sup>
 
@@ -91,7 +93,7 @@ Gradient Descent is an algorithm which is used extensively in machine learning, 
 
 #### Implementing Gradient Descent
 
-On each step, w, the parameter, is updated to the old value of w minus Alpha times the term d/dw of the cost function J of wb. We are simply taking modifying our parameter w by taking the current value of w and adjusting it a small amount.
+On each **gradient step**, w, the parameter, is updated to the old value of w minus Alpha times the term d/dw of the cost function J of wb. We are simply taking modifying our parameter w by taking the current value of w and adjusting it a small amount.
 
 w = w-α $\frac{d}{dw}$ J(w,b)
 
@@ -105,7 +107,15 @@ To break down the above equation from left to right:
 * the [derivative term](https://en.wikipedia.org/wiki/Derivative) of the cost function J
   * the direction in which we want to step our gradient descent
 
-We repeat the two steps shown in the equation until we reach a local minimum, also called convergence, which is when the values of w and b no longer change much in relation to their previous values.
+We repeat the two steps shown in the equation until we reach a local minimum, also called convergence, which is when the values of w and b no longer change much in relation to their previous values. The key here is not to attempt to find the most efficient learning rate, but rather a learning rate that converges quickly enough without being too large and over-shooting the local minimum, or too small, and needing too much processing power.
+
+#### Stochastic Gradient Descent
+
+In gradient descent, a batch is the total number of examples you use to calculate the gradient in a single iteration and up to this point we have assumed the batch has been our entire dataset. When working at scale, data sets often contain billions or even hundreds of billions of examples, along with many redundant data-points.
+
+It is safe to say enormous batches tend not to carry much more predictive value than large batches. What we ideally want it to get the right gradient on average for much less computation. To achieve this we can employ Stochastic Gradient Descent, the term "stochastic" means we are sampling one example comprising each batch at random. While SGD works, it can be quite noisy.
+
+**Mini-batch Stochastic Gradient Descent** is a compromise between full-batch iteration and SGD where we sample between 10 and a 1000 examples chosen at random. Even though gradient descent so far has been focused on single features for simplicity's sake, it also works on multivariate feature sets.
 
 ## Convolutional Neural Networks for Vision Systems
 
