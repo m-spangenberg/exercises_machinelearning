@@ -1,7 +1,13 @@
 # Machine Learning
 
+Below are my notes on machine learning theory from [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google Machine Learning](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford Lectures](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [Practical Deep Learning for Coders](https://course.fast.ai/).
+
 * Supervised Learning
-  * Regression
+  * Linear Regression Models
+  * Gradient Descent
+  * Naive Bayes
+  * Nearest Neighbors
+  * Decision Trees
   * Classification
 * Unsupervised Learning
   * Clustering
@@ -54,15 +60,61 @@ In machine learning there exists different cost functions for different applicat
 
 To recap, here's what we've seen about the cost function so far:
 
-* model: we want to model a striaght line to a dataset with f<sub>w,b</sub>(x) = wx+b
+* model: we want to model a straight line to a dataset with f<sub>w,b</sub>(x) = wx+b
 * parameters: depending on the values chosen for w,b, we get different fit lines
 * cost function: to measure how well our model fits the training data we have a cost function J(w,b) = $\frac{1}{2m}$ $\sum_{i=1}^{m}$ (ŷ<sup>(i)</sup> - y<sup>(i)</sup>)<sup>2</sup>
 * goal: to try to minimize J as a function of w and b
 
-#### Gradient Descent
+### Gradient Descent
 
-Gradient Descent is an algorithm which is used extensively in machine learning, from linear regression to deep learning models, and is one of the most important building blocks in machine learning.
+Gradient Descent is an algorithm which is used extensively in machine learning, from linear regression to deep learning models, and is one of the most important building blocks in machine learning. Essentially, We have the cost function J(w,b) that we want to minimize, and it turns out we can use gradient decent to do just this to find the smallest possible cost value for J. We start off with some initial guesses for our parameters w and b, then we keep changing w and b until the cost of J settles at or near a minimum, descending downhill if you like, towards what is commonly referred to as the local minima. It's also possible for there to be more than one local minimum.
 
-Overview:
+#### Implementing Gradient Descent
 
-We have the cost function J(w,b) that we want to minimize
+On each step, w, the parameter, is updated to the old value of w minus Alpha times the term d/dw of the cos function J of wb. We are simply taking modifying our parameter w by taking the current value of w and adjusting it a small amount.
+
+w = w-α $\frac{d}{dw}$ J(w,b)
+
+b = b-α $\frac{d}{dw}$ J(w,b)
+
+To break down the above equation from left to right:
+
+* assign the product from the RHS to the LHS variable called w
+* in this equation, Alpha or the symbol α, is called our learning rate
+  * the learning rate is hoe aggressive the gradient descent step size is
+* the derivative term of the cost function J
+  * the direction in which we want to step our gradient descent
+
+We repeat the two steps shown in the equation until we reach a local minimum, also called convergence, which is when the values of w and b no longer change much in relation to their previous values.
+
+## Convolutional Neural Networks for Vision Systems
+
+### Image Classification
+
+### Loss Functions and Optimization
+
+### Intro to Neural Networks
+
+### Convolutional Neural Networks (CNNs)
+
+### Training Neural Networks I
+
+### Training Neural Networks II
+
+### Deep Learning Software
+
+### CNN Architectures
+
+### Recurrent Neural Networks
+
+### Detection and Segmentation
+
+### Visualizing and Understanding
+
+### Generative Models
+
+### Deep Reinforcement Learning
+
+### Efficient Methods and Hardware for Deep Learning
+
+### Adversarial Examples and Adversarial Training
