@@ -82,9 +82,15 @@ In machine learning there exists different cost functions for different applicat
 
 To recap, here's what we've seen about the cost function so far:
 
-* model: we want to model a straight line to a dataset with f<sub>w,b</sub>(x) = wx+b
+* model: we want to model a straight line to a dataset with
+  
+f<sub>w,b</sub>(x) = wx+b
+
 * parameters: depending on the values chosen for w,b, we get different fit lines
-* cost function: to measure how well our model fits the training data we have a cost function J(w,b) = $\frac{1}{2m}$ $\sum_{i=1}^{m}$ (ŷ<sup>(i)</sup> - y<sup>(i)</sup>)<sup>2</sup>
+* cost function: to measure how well our model fits the training data we have a cost function
+  
+J(w,b) = $\frac{1}{2m}$ $\sum_{i=1}^{m}$ (ŷ<sup>(i)</sup> - y<sup>(i)</sup>)<sup>2</sup>
+
 * goal: to try to minimize J as a function of w and b
 
 ### Gradient Descent
@@ -95,7 +101,9 @@ Gradient Descent is an algorithm which is used extensively in machine learning, 
 
 On each **gradient step**, w, the parameter, is updated to the old value of w minus Alpha times the term d/dw of the cost function J of wb. We are simply taking modifying our parameter w by taking the current value of w and adjusting it a small amount.
 
-w = w-α $\frac{d}{dw}$ J(w,b) and b = b-α $\frac{d}{dw}$ J(w,b)
+w = w-α $\frac{d}{dw}$ J(w,b)
+
+b = b-α $\frac{d}{dw}$ J(w,b)
 
 To break down the above equation from left to right:
 
