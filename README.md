@@ -37,7 +37,12 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
       - [Forward Propagation (FNN)](#forward-propagation-fnn)
       - [Back Propagation (BP)](#back-propagation-bp)
       - [Learning Algorithm](#learning-algorithm)
-    - [Neural Network Terminology](#neural-network-terminology)
+  - [Neural Network Terminology](#neural-network-terminology)
+    - [**Activation Function**](#activation-function)
+    - [**Loss Function**](#loss-function)
+    - [**Optimizers**](#optimizers)
+    - [Parameters and Hyperparameters](#parameters-and-hyperparameters)
+    - [Epochs, Batches, Batch Sizes, and Iterations](#epochs-batches-batch-sizes-and-iterations)
   - [Convolutional Neural Networks for Vision Systems](#convolutional-neural-networks-for-vision-systems)
     - [Image Classification](#image-classification)
     - [Loss Functions and Optimization](#loss-functions-and-optimization)
@@ -98,6 +103,14 @@ See more [machine learning glossary](https://developers.google.com/machine-learn
 * **Standard Deviation**
   * The lowercase letter sigma $\sigma$ is used to represent [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation)
   * a measure of the amount of variation or dispersion of a set of values
+* **Partial Derivative**
+  * Cursive $\partial$ usually to denote a [partial derivative](https://en.wikipedia.org/wiki/Partial_derivative)
+  * a derivative is the rate of change of a function with respect to a variable
+  * a partial derivative is the derivative of a function of several variables with respect to change in just one of its variables
+* **Gradient**
+  * used in vector calculus
+  * expressed as an upside down triangle known as a Del or nabla $\nabla$
+  * The vector of partial derivatives with respect to all independent variables
 
 #### Linear Regression Model
 
@@ -273,49 +286,119 @@ Back propagation is much like forward propagation, except here information here 
 * Update weights and biases based on the calculated loss from a gradient descent algorithm
 * Iterate through previous steps until loss is minimized
 
-### Neural Network Terminology
+## Neural Network Terminology
 
-* **Activation Function**
-  * Introduce 'Non-Linearity' in the Network
-  * Decides whether a neuron can contribute (activation threshold)
-  * Which function should we use?
-    * a. **Step Function** that is either 0 or 1 does not work in every scenario
-    * b. **Linear Function** is ok, but the derivative is a constant
-      * This means the gradient has no relation with $x$
-      * The activation function is nothing but a linear input of the first layer, not good!
-    * c. **Sigmoid Function** defined as $a(x)=$ $1\over1+e^{-x}$
-      * Non-linear in nature, so we can stack layers
-      * Output will be in range 0 to 1 (analog outputs)
-      * Tend to have steep $Y$ values and poor response at extremes
-      * [Vanishing Gradient problem](https://en.wikipedia.org/wiki/Vanishing_gradient_problem)
-    * d. **Tanh Function**
-      * Similar to Sigmoid
-      * Derivative is steeper than Sigmoid
-      * Also suffers from Vanishing Gradient problem
-    * e. **ReLU Function** (Rectified Linear Unit) $R(z) = \max(0,z)$
-      * Non-linear (stackable neuron layers) although isn't bounded :(
-      * Sparse Activation is preferred
-      * [Dying ReLU problem](https://datascience.stackexchange.com/questions/5706/what-is-the-dying-relu-problem-in-neural-networks)
-    * f. **Leaky ReLU Function**
-  * Binary Classifications try: **Sigmoid**
-  * If there is uncertainty try: **ReLU or modified ReLU**
-* **Loss Function**
-  * A way to quantify the deviation of the predicted output by the neural network to the expected output
-  * Simply put: A mathematical way of calculating how 'wrong' the output of our neural network is
-  * Different types of loss functions exist
-    * Regression: Squared Error, Huber Loss
-    * Binary Classification: Binary Cross-Entropy, Hinge Loss
-    * Multi-Class Classification: Multi-Class Cross Entropy, Kullback Divergence
-* **Optimizers**
-  * During training, we adjust parameters (weights and biases) to minimize the loss function
-    * HOW do we achieve this?
-      * By updating the network based on the output of the loss function
-      * Loss funtion guides the optimizer
-      * Descending towards the lowest `local minimum` is our process of `reducing error`
-    * **Gradient Descent**
-      * Most popular optimizer
-      * Iterative algorithm that starts at a random point
-      * Iterates until it reaches the lowest point (minimum)
+### **Activation Function**
+
+* Introduce 'Non-Linearity' in the Network
+* Decides whether a neuron can contribute (activation threshold)
+* Which function should we use?
+  * a. **Step Function** that is either 0 or 1 does not work in every scenario
+  * b. **Linear Function** is ok, but the derivative is a constant
+    * This means the gradient has no relation with $x$
+    * The activation function is nothing but a linear input of the first layer, not good!
+  * c. **Sigmoid Function** defined as $a(x)=$ $1\over1+e^{-x}$
+    * Non-linear in nature, so we can stack layers
+    * Output will be in range 0 to 1 (analog outputs)
+    * Tend to have steep $Y$ values and poor response at extremes
+    * [Vanishing Gradient problem](https://en.wikipedia.org/wiki/Vanishing_gradient_problem)
+  * d. **Tanh Function**
+    * Similar to Sigmoid
+    * Derivative is steeper than Sigmoid
+    * Also suffers from Vanishing Gradient problem
+  * e. **ReLU Function** (Rectified Linear Unit) $R(z) = \max(0,z)$
+    * Non-linear (stackable neuron layers) although isn't bounded :(
+    * Sparse Activation is preferred
+    * [Dying ReLU problem](https://datascience.stackexchange.com/questions/5706/what-is-the-dying-relu-problem-in-neural-networks)
+  * f. **Leaky ReLU Function**
+* Binary Classifications try: **Sigmoid**
+* If there is uncertainty try: **ReLU or modified ReLU**
+
+### **Loss Function**
+
+* A way to quantify the deviation of the predicted output by the neural network to the expected output
+* Simply put: A mathematical way of calculating how 'wrong' the output of our neural network is
+* Different types of loss functions exist
+  * Regression: Squared Error, Huber Loss
+  * Binary Classification: Binary Cross-Entropy, Hinge Loss
+  * Multi-Class Classification: Multi-Class Cross Entropy, Kullback Divergence
+
+### **Optimizers**
+
+* During training, we adjust parameters (weights and biases) to minimize the loss function
+  * HOW do we achieve this?
+    * By updating the network based on the output of the loss function
+    * Loss funtion guides the optimizer
+    * Descending towards the lowest `local minimum` is our process of `reducing error`
+* **Gradient Descent**
+  * Most popular optimizer, essentially is back propagation
+  * Iterative algorithm that starts at a random point
+  * Calculates what a small change in each individual weight does to the loss function
+  * Adjust each parameter based on its gradient (taking small steps)
+  * Iterates until it reaches the lowest point (minimum)
+  * What is a gradient?
+    * $\nabla f(x,y) =$ $(\frac{\partial f}{\partial x}(x,y), \frac{\partial f}{\partial y}(x,y))$
+    * The Gradient of a Function is the vector of partial derivatives with respect to all independent variables.
+    * Always points in the direction of the steepest increase in the function
+    * There exists a global and local minimum, to avoid the local minimum we must tweak the Learning Rate
+* **Learning Rate**
+  * A large learning rate will overshoot the global minimum
+  * A small learning rate will take very long to converge on the global minimum
+* Other Optimizers
+  * **Stochastic Gradient Descent**
+    * Like Gradient Descent, but only uses a random subset of the training examples
+    * Uses batches of examples in each pass
+    * Uses momentum to accumulate gradients
+    * Less computationally intensive
+  * **Adagrad**
+    * Adapts Learning Rate to individual features
+    * Some weights will have different learning rates
+    * IDeal for sparse datasets with many input examples
+    * Problem: Learning Rate tends to get small with time
+  * **RMSprop**
+    * Specialized version of Adagrad
+    * Accumulates Gradients in a fixed window instead of using momentum
+    * Similar to Adaprop
+  * **Adam**
+    * Stands for Adaptive Moment Estimation
+    * Uses the concept of momentum
+      * our way of telling the network whether we want past changes affect the new change
+    * Used widely in practice
+* Take aways
+  * There are many optimizers, easy to be overwhelmed by the complexity of choice
+  * All of them have the same goal: Minimizing the loss function
+  * Trial and error will help us develop an intuition for which ones are preferable
+
+### Parameters and Hyperparameters
+
+* What are **Model Parameters**?
+  * Variables internal to the neural network
+  * Estimated directly from the data
+  * Responsible for defining the skill of our model
+  * Required by the model when making predictions
+  * Not set manually
+  * Saved as part of the learned model
+  * Exampels: **Weights**, **Biases**
+* What are **Hyperparamters**?
+  * Configurations external to the neural network model
+  * Value cannot be estimated directly from data
+  * No easy wat to find the best value, takes trial and error
+  * When a Deep Learning algorithm is tuned, we make changes to hyperparameters.
+  * All manually specified parameters are hyperparameters
+  * Examples: **Learning Rate**, [C](https://stackoverflow.com/questions/12809633/parameter-c-in-svm-standard-to-find-best-parameter) (penalty/error) & $\sigma$ (standard deviation) in [Support Vector Machines](https://scikit-learn.org/stable/modules/svm.html)
+
+### Epochs, Batches, Batch Sizes, and Iterations
+
+* **Epoch**
+  * When the ENTIRE dataset is passed forward and backward through the neural network only ONCE
+  * In general, we use more than one epoch to help us produce more generalized models
+  * Gradient descent is iterative, one epoch is simply not enough for good fitting to occur
+  * Problem: Too many epochs could result in over-fitting where our model is fragile to new data
+* **Batches and Batch Sizes**
+  * Often our data sets are very large, so we divide our data into manageable batches
+  * Batch Size is simply the total number of training examples in a single Batch
+* **Iterations**
+  * The number of batches needed to complete one epoch
 
 ## Convolutional Neural Networks for Vision Systems
 
@@ -351,5 +434,6 @@ Back propagation is much like forward propagation, except here information here 
 
 ## Errata
 
+* glossary of [mathematical symbols](https://en.wikipedia.org/wiki/Glossary_of_mathematical_symbols)
 * list of mathematical symbols [by subject](https://en.wikipedia.org/wiki/List_of_mathematical_symbols_by_subject) 
 * list of mathematical [constants](https://en.wikipedia.org/wiki/List_of_mathematical_constants)
