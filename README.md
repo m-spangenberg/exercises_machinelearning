@@ -54,17 +54,17 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
 See more [machine learning glossary](https://developers.google.com/machine-learning/glossary)
 
 * **Features** are the input variables describing our data
-  * Typically represented by the variables {x<sub>1</sub>, x<sub>2</sub>, x<sub>3</sub>, ..., x<sub>n</sub>}
-  * x = "input" variable feature
+  * Typically represented by the variables {$x_{1}x_{2}x_{...}x_{n}$}
+  * $x$ = "input" variable feature
 * **label** is the output variable we're predicting
-  * Typically represented by the variable y
-  * y = "output" target feature
-* m = number of training examples
+  * Typically represented by the variable $y$
+  * $y$ = "output" target feature
+* $m$ = number of training examples
 * **Example** is one piece or instance of data
   * a **Labeled Example** has {features, label}: (x,y)
   * These labeled examples are used to train our model.
-  * (x,y) = single training example
-  * (x<sup>(i)</sup>,y<sup>(i)</sup>) = the i<sup>th</sup> training example
+  * $(x,y)$ = single training example
+  * $(x^{(i)},y^{(i)})$ = the $i^{th}$ training example
 * an **Unlabeled Example** has {features, ?}: (x,?)
   * Used for making predictions on new data (inference)
 * **Model** maps examples to predicted labels
@@ -138,6 +138,8 @@ w and b are called the `parameters` of our model. They are the `Slope` and the `
 $$ŷ^{(i)} = f_{w,b}(x^{(i)}) = wx^{(i)}+b$$
 
 The formula above shows our predicted value, $ŷ$ (y-hat) for the $i^{th}$ training sample
+
+Note: Models with single features are represented by [line of best fit](https://en.wikipedia.org/wiki/Simple_linear_regression), with two features, a plane and for more than two features, a [hyperplane](https://en.wikipedia.org/wiki/Hyperplane) is used.
 
 ### **Cost Function Formula**
 
