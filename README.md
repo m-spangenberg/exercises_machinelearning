@@ -1,3 +1,5 @@
+
+
 # Machine Learning
 
 Below are my notes on machine learning theory from [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford Lectures](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [Practical Deep Learning for Coders](https://course.fast.ai/).
@@ -13,6 +15,46 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
   * Clustering
   * Anomaly Detection
   * Dimensionality Reduction
+
+- [Machine Learning](#machine-learning)
+  - [Supervised Learning](#supervised-learning)
+    - [Univariate Linear Regression](#univariate-linear-regression)
+      - [Standard Notation & Terminology](#standard-notation--terminology)
+      - [Linear Regression Model](#linear-regression-model)
+      - [Cost Function Formula](#cost-function-formula)
+      - [Cost Function Intuition](#cost-function-intuition)
+    - [Gradient Descent](#gradient-descent)
+      - [Implementing Gradient Descent](#implementing-gradient-descent)
+      - [Stochastic Gradient Descent](#stochastic-gradient-descent)
+  - [Tensorflow](#tensorflow)
+    - [What is TensorFlow?](#what-is-tensorflow)
+  - [Generalization](#generalization)
+    - [What is a "Good" Model](#what-is-a-good-model)
+  - [Deep Learning](#deep-learning)
+    - [Motivation](#motivation)
+    - [Neural Networks](#neural-networks)
+    - [Learning Process](#learning-process)
+      - [Forward Propagation (FNN)](#forward-propagation-fnn)
+      - [Back Propagation (BP)](#back-propagation-bp)
+      - [Learning Algorithm](#learning-algorithm)
+    - [Neural Network Terminology](#neural-network-terminology)
+  - [Convolutional Neural Networks for Vision Systems](#convolutional-neural-networks-for-vision-systems)
+    - [Image Classification](#image-classification)
+    - [Loss Functions and Optimization](#loss-functions-and-optimization)
+    - [Intro to Neural Networks](#intro-to-neural-networks)
+    - [Convolutional Neural Networks (CNNs)](#convolutional-neural-networks-cnns)
+    - [Training Neural Networks I](#training-neural-networks-i)
+    - [Training Neural Networks II](#training-neural-networks-ii)
+    - [Deep Learning Software](#deep-learning-software)
+    - [CNN Architectures](#cnn-architectures)
+    - [Recurrent Neural Networks](#recurrent-neural-networks)
+    - [Detection and Segmentation](#detection-and-segmentation)
+    - [Visualizing and Understanding](#visualizing-and-understanding)
+    - [Generative Models](#generative-models)
+    - [Deep Reinforcement Learning](#deep-reinforcement-learning)
+    - [Efficient Methods and Hardware for Deep Learning](#efficient-methods-and-hardware-for-deep-learning)
+    - [Adversarial Examples and Adversarial Training](#adversarial-examples-and-adversarial-training)
+  - [Errata](#errata)
 
 ## Supervised Learning
 
@@ -171,7 +213,89 @@ There are three basic assumptions in all of the above:
 2. The distribution is **stationary**: it doesn't change over time
 3. We always pull from the **same distribution**: including training, validation and test sets
 
-It is important to remember that the above assumption **can** be violated, for instance in the case of 2. people can change their shopping behavior as seasons change, and case 3. tastes and fashions can change. 
+It is important to remember that the above assumption **can** be violated, for instance in the case of 2. people can change their shopping behavior as seasons change, and case 3. tastes and fashions can change.
+https://developers.google.com/machine-learning/crash-course/generalization/peril-of-overfitting
+
+## Deep Learning
+
+What is 'Deep Learning'? A subset of Machine Learning, which itself is part of the domain of Artificial Intelligence. Where Machine Learning involves teaching computers to recognize patterns in data, Deep Learning is a Machine Learning technique that learns features and tasks directly from data. The inputs are run through often extremely complex "neural networks", with many hidden layers, hence 'deep' learning.
+
+### Motivation
+
+Why even use Deep Learning? Traditional ML, no matter how complex, will always be machine-like. It produces systems that require domain expertise and human intervention. The key idea in DL is that by feeding our data into a neural network, the system will teach itself, requiring less direct interaction by humans. These algorithms have existed for longer than most people are aware, and have only really come into their own because of the following factors:
+
+* An abundance of data, so called 'Big Data' (Facebook, Google, et al.)
+* More computational power (GPU's, TPU's and other custom processing units)
+* New software architectures (Tensorflow, PyTorch, ML tool sets and libraries)
+
+### Neural Networks
+
+What is a Neural Network? Neural Networks are constructed from neurons, like neurons in the brain, they are interconnected and layered in networks. These networks take data as input and train themselves to find patterns in data. These Neural Networks then predicts outputs for similar sets of data.
+
+![Multi Layer Neural Network](https://upload.wikimedia.org/wikipedia/commons/c/c2/MultiLayerNeuralNetworkBigger_english.png "Multi Layer Neural Network - https://commons.wikimedia.org/wiki/File:MultiLayerNeuralNetworkBigger_english.png")
+
+### Learning Process
+
+#### Forward Propagation ([FNN](https://en.wikipedia.org/wiki/Feedforward_neural_network))
+
+$$ŷ =  \sigma \sum_{i=1}^{n}x_{i}w_{i}+b_{i}$$
+
+In forward propagation the following processes occur:
+
+1. $x_{i}$ : The input layer, defined as neurons $x_{1}x_{2}x_{3}x_{...}x_{n}$, receives information
+2. $w_{i}$ : The input neurons connect to the next layer through weighted channels $w_{1}w_{2}w_{3}w_{...}w_{n}$
+3. $b_{n}$ : The inputs are multiplied by these weights and their sum sent as input to biased neurons in the hidden layer $b_{1}b_{2}b_{3}b_{...}b_{n}$
+4. $\sigma$ : The total of the biased neuron, plus the weighted sum from the original input is then passed to a [non-linear activation function](https://en.wikipedia.org/wiki/Activation_function)
+5. The activation function decides if the neuron can contribute to the next layer
+6. $ŷ$ : The output layer is a form of probability where the neuron with the highest value determines what the output is
+
+Some key insights:
+
+* **Weight** of neurons tells us how important a neuron is related to other neurons
+* **Bias** is akin to opinion between related neurons and shifts $\sigma$ [right or left](https://en.wikipedia.org/wiki/Scalar_(mathematics))
+
+
+#### Back Propagation ([BP](https://en.wikipedia.org/wiki/Backpropagation))
+
+Back propagation is much like forward propagation, except here information here goes from output layer to hidden layers. Let's assume our NN produces a prediction, which can be either right or wrong. In Back Propagation, the NN evaluates its own performance with a [Loss Function](https://en.wikipedia.org/wiki/Loss_function) in order to quantify the deviation from the expected output. This deviation is what is fed back to the hidden layers, so weights and biases can be adjusted and the training process can improve.
+
+#### Learning Algorithm
+
+* Initialize network's weights and biases with random values
+* Supply the input neurons with data
+* Compare predicted values with expected values and calculate loss
+* Perform Back Propagation to propagate loss back through the network
+* Update weights and biases based on the calculated loss from a gradient descent algorithm
+* Iterate through previous steps until loss is minimized
+
+### Neural Network Terminology
+
+* Activation Function
+  * Introduce 'Non-Linearity' in the Network
+    * Why use Non-Linear Activation Functions?
+      * 
+  * Decides whether a neuron can contribute (activation threshold)
+  * Which function should we use?
+    * a. **Step Function** that is either 0 or 1 does not work in every scenario
+    * b. **Linear Function** is ok, but the derivative is a constant
+      * This means the gradient has no relation with $x$
+      * The activation function is nothing but a linear input of the first layer, not good!
+    * c. **Sigmoid Function** defined as $a(x)=$ $1\over1+e^{-x}$
+      * Non-linear in nature, so we can stack layers
+      * Output will be in range 0 to 1 (analog outputs)
+      * Tend to have steep $Y$ values and poor response at extremes
+      * [Vanishing Gradient problem](https://en.wikipedia.org/wiki/Vanishing_gradient_problem)
+    * d. **Tanh Function**
+      * Similar to Sigmoid
+      * Derivative is steeper than Sigmoid
+      * Also suffers from Vanishing Gradient problem
+    * e. **ReLU Function** (Rectified Linear Unit) $R(z) = \max(0,z)$
+      * Non-linear (stackable neuron layers) although isn't bounded :(
+      * Sparse Activation is preferred
+      * [Dying ReLU problem](https://datascience.stackexchange.com/questions/5706/what-is-the-dying-relu-problem-in-neural-networks)
+    * f. **Leaky ReLU Function**
+  * Binary Classifications try: **Sigmoid**
+  * If there is uncertainty try: **ReLU or modified ReLU**
 
 ## Convolutional Neural Networks for Vision Systems
 
@@ -204,3 +328,8 @@ It is important to remember that the above assumption **can** be violated, for i
 ### Efficient Methods and Hardware for Deep Learning
 
 ### Adversarial Examples and Adversarial Training
+
+## Errata
+
+* list of mathematical symbols [by subject](https://en.wikipedia.org/wiki/List_of_mathematical_symbols_by_subject) 
+* list of mathematical [constants](https://en.wikipedia.org/wiki/List_of_mathematical_constants)
