@@ -21,9 +21,6 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
     - [Fully-Connected Feedforward Neural Networks](#fully-connected-feedforward-neural-networks)
     - [Recurrent Neural Networks](#recurrent-neural-networks)
     - [Convolutional Neural Networks](#convolutional-neural-networks)
-  - [Data Gathering](#data-gathering)
-  - [Data Preprocessing](#data-preprocessing)
-  - [Model Training](#model-training)
   - [Deep Learning](#deep-learning)
     - [**Motivation**](#motivation)
     - [**Neural Networks**](#neural-networks)
@@ -39,6 +36,10 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
   - [Gradient Descent](#gradient-descent)
     - [**Implementing Gradient Descent**](#implementing-gradient-descent)
     - [**Stochastic Gradient Descent**](#stochastic-gradient-descent)
+  - [Building a Deep Learning Model](#building-a-deep-learning-model)
+    - [Data Gathering](#data-gathering)
+    - [Data Preprocessing](#data-preprocessing)
+    - [Model Training](#model-training)
   - [Errata](#errata)
     - [Toolkits and Libraries](#toolkits-and-libraries)
       - [TensorFlow](#tensorflow)
@@ -251,7 +252,7 @@ A core problem in Deep Learning is to create a model that performs well on train
   * Good results, Very popular
   * At every iteration, randomly removes nodes and their connections
 * Augmentation
-  * Some application do better with more data $\rarr$ Better Model
+  * Some application do better with more data result in better models
   * Synthesize data and add it to the training set
   * Good approach for classification, used widely in object recognition
 * Early Stopping
@@ -266,12 +267,6 @@ A core problem in Deep Learning is to create a model that performs well on train
 ### Recurrent Neural Networks
 
 ### Convolutional Neural Networks
-
-## Data Gathering
-
-## Data Preprocessing
-
-## Model Training
 
 ## Deep Learning
 
@@ -476,6 +471,14 @@ It is safe to say enormous batches tend not to carry much more predictive value 
 * **Stochastic Gradient Descent**: one example at a time
 * **Mini-Batch Gradient Descent**: batches of 10-1000
   * Loss & gradients are averaged over the batch
+
+## Building a Deep Learning Model
+
+### Data Gathering
+
+### Data Preprocessing
+
+### Model Training
 
 ## Errata
 
