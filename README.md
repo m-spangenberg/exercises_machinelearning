@@ -4,22 +4,11 @@
 
 Below are my notes on machine learning theory from [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [Practical Deep Learning for Coders](https://course.fast.ai/).
 
-* Supervised Learning
-  * Linear Regression Models
-  * Gradient Descent
-  * Naive Bayes
-  * Nearest Neighbors
-  * Decision Trees
-  * Classification
-* Unsupervised Learning
-  * Clustering
-  * Anomaly Detection
-  * Dimensionality Reduction
-* Reinforcement Learning
-
 - [Machine Learning](#machine-learning)
   - [Standard Notation](#standard-notation)
   - [Supervised Learning](#supervised-learning)
+    - [Classification](#classification)
+    - [Regression](#regression)
     - [**Linear Regression Model**](#linear-regression-model)
     - [**Cost Function Formula**](#cost-function-formula)
     - [**Cost Function Intuition**](#cost-function-intuition)
@@ -105,21 +94,50 @@ See more [machine learning glossary](https://developers.google.com/machine-learn
 
 ## Supervised Learning
 
-In supervised machine learning, we're learning to create models that combine inputs to produce useful predictions on data, often previously unseen data. 
+Our journey begins with Supervised Learning, the most popular sub-branches of Machine Learning. Algorithms here, are designed to learn by example and the models it produces are trained on well-labeled data. We, the supervisors, are teaching systems to create models that combine labeled inputs called examples to produce useful predictions on data, often previously unseen data.
+
+Each example is a pair consisting of:
+
+* Input Feature (new data, typically a [vector](https://simple.wikipedia.org/wiki/Vector))
+* Target Feature (our desired output)
+
+**During training**, Supervised Learning algorithms search for patterns that correlate with the desired output.
+**After training**, takes in unseen inputs and determines which label to classify it to.
+
+At its most basic form, a supervised learning algorithm can be written as:
+
+$$ŷ = f(x)$$
+
+Where $ŷ$ (y-hat) is the predicted output determined by a mapping function $f$ based on an input value $x$. The function $f$ used to produce a prediction is created by the machine learning model during training. Let's take a look at the two sub-catagories of supervised learning: Classification and Regression.
+
+### Classification
+
+A classification algorithm will take input data and assign it classes or categories. For example: emails being spam or not spam are called `binary classification problems`. The model finds features in the data that correlate to a class and creates a `mapping function`, when provided with a new email, it will use this mapping function to classify it as either spam or not spam. Another popular example of a classification problem is human handwriting, where there are many variations of human handwriting, in both cursive and print.
+
+* **Popular Classification Algorithms**
+  * Linear Classifiers
+  * Support Vector Machines
+  * Decision Trees
+  * K-Nearest Neighbour
+  * Random Forest
+
+### Regression
+
+Regression is a predictive, statistical process, where the model tries to find the important relationship between independent and dependant variables. For instance the goal of a regressive algorithm could be to predict continuous values like infections, sales, or test scores.
 
 ### **Linear Regression Model**
 
-Often called **Univariate Linear Regression**, or Linear Regression with one variable, for instance: The price of houses given their size. Our training set is fed features (x) and targets (y) and our supervised algorithm will produce some function (a hypothesis, which is our model). The job of this function is to take a new feature (input variable) and produce an estimate, also called y-hat, which is a predicted value of y in a regression equation.
+Often called **Univariate Linear Regression**, or Linear Regression with one variable, for instance: The price of houses given their size. Our training set is fed features $x$ and targets $y$ and our supervised algorithm will produce some function (a hypothesis, which is our model). The job of this function is to take a new feature (input variable) and produce an estimate, also called y-hat, which is a predicted value of $y$ in a regression equation.
 
 $$f_{wb}(x) = wx+b$$
 
-f is the function that takes x's input and depending on the values of w and b, f will output a prediction of y-hat. A simpler notation is f(x), which in this context, denotes the same thing as f sub-w,b of x.
+$f$ is the function that takes $x$'s input and depending on the values of $w$ and $b$, $f$ will output a prediction of $ŷ$ (y-hat). A simpler notation is $f(x)$, which in this context, denotes the same thing as $f_{w,b}(x)$.
 
-w and b are called the `parameters` of our model. In machine learning, parameters are the variables we can adjust during training in order to improve the model's performance, these parameters are also often referred to as `coefficients` or `weights`.
+w and b are called the `parameters` of our model. They are the `Slope` and the `y-intercept`, respectively. In machine learning, parameters are the variables we can adjust during training in order to improve the model's performance, these parameters are also often referred to as `coefficients` or `weights`.
 
 $$ŷ^{(i)} = f_{w,b}(x^{(i)}) = wx^{(i)}+b$$
 
-The formula above shows our predicted value, y-hat for the i<sup>th</sup> training sample
+The formula above shows our predicted value, $ŷ$ (y-hat) for the $i^{th}$ training sample
 
 ### **Cost Function Formula**
 
