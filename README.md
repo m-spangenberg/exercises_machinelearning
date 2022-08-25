@@ -1,5 +1,3 @@
-
-
 # Machine Learning
 
 Below are my notes on machine learning theory from [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [Practical Deep Learning for Coders](https://course.fast.ai/).
@@ -7,15 +5,23 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
 - [Machine Learning](#machine-learning)
   - [Standard Notation](#standard-notation)
   - [Supervised Learning](#supervised-learning)
-    - [Classification](#classification)
-    - [Regression](#regression)
+    - [**Classification**](#classification)
+    - [**Regression**](#regression)
     - [**Linear Regression Model**](#linear-regression-model)
     - [**Cost Function Formula**](#cost-function-formula)
     - [**Cost Function Intuition**](#cost-function-intuition)
-  - [Tensorflow](#tensorflow)
-    - [What is TensorFlow?](#what-is-tensorflow)
-  - [Generalization](#generalization)
-    - [What is a "Good" Model](#what-is-a-good-model)
+    - [**Generalization**](#generalization)
+  - [Unsupervised Learning](#unsupervised-learning)
+    - [Clustering](#clustering)
+    - [Association](#association)
+  - [Reinforcement Learning](#reinforcement-learning)
+  - [Regularization](#regularization)
+  - [Fully-Connected Feedforward Neural Networks](#fully-connected-feedforward-neural-networks)
+  - [Recurrent Neural Networks](#recurrent-neural-networks)
+  - [Convolutional Neural Networks](#convolutional-neural-networks)
+  - [Data Gathering](#data-gathering)
+  - [Data Preprocessing](#data-preprocessing)
+  - [Model Training](#model-training)
   - [Deep Learning](#deep-learning)
     - [**Motivation**](#motivation)
     - [**Neural Networks**](#neural-networks)
@@ -31,23 +37,10 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
   - [Gradient Descent](#gradient-descent)
     - [**Implementing Gradient Descent**](#implementing-gradient-descent)
     - [**Stochastic Gradient Descent**](#stochastic-gradient-descent)
-  - [Convolutional Neural Networks for Vision Systems](#convolutional-neural-networks-for-vision-systems)
-    - [Image Classification](#image-classification)
-    - [Loss Functions and Optimization](#loss-functions-and-optimization)
-    - [Intro to Neural Networks](#intro-to-neural-networks)
-    - [Convolutional Neural Networks (CNNs)](#convolutional-neural-networks-cnns)
-    - [Training Neural Networks I](#training-neural-networks-i)
-    - [Training Neural Networks II](#training-neural-networks-ii)
-    - [Deep Learning Software](#deep-learning-software)
-    - [CNN Architectures](#cnn-architectures)
-    - [Recurrent Neural Networks](#recurrent-neural-networks)
-    - [Detection and Segmentation](#detection-and-segmentation)
-    - [Visualizing and Understanding](#visualizing-and-understanding)
-    - [Generative Models](#generative-models)
-    - [Deep Reinforcement Learning](#deep-reinforcement-learning)
-    - [Efficient Methods and Hardware for Deep Learning](#efficient-methods-and-hardware-for-deep-learning)
-    - [Adversarial Examples and Adversarial Training](#adversarial-examples-and-adversarial-training)
   - [Errata](#errata)
+    - [Toolkits and Libraries](#toolkits-and-libraries)
+      - [TensorFlow](#tensorflow)
+    - [Mathematics References](#mathematics-references)
 
 ## Standard Notation
 
@@ -69,15 +62,11 @@ See more [machine learning glossary](https://developers.google.com/machine-learn
   * Used for making predictions on new data (inference)
 * **Model** maps examples to predicted labels
   * Defined by internal parameters, which are learned
-  * w, b = parameters, weights or coefficients
-  * y-hat or ŷ or y' = prediction or estimate
+  * $w, b$ = parameters, weights or coefficients
+  * y-hat or $ŷ$ or $y'$ = prediction or estimate
 * **Training** means creating or learning the model. 
   * a model gradually learns the relationships between features and labels
 * **Inference** means applying the trained model to unlabeled examples
-* A **regression** model predicts continuous values
-  * What is the value of a house?
-* A **classification** model predicts discrete values
-  * Is this an image of a dog, or a cat?
 * **Sum** of common terms
   * Uppercase letter Sigma $\Sigma$, used to denote a sum of multiple terms
 * **Standard Deviation**
@@ -93,6 +82,12 @@ See more [machine learning glossary](https://developers.google.com/machine-learn
   * The vector of partial derivatives with respect to all independent variables
 
 ## Supervised Learning
+
+* **Applications of Supervised Learning**
+  * Bioinformatics
+  * Object Recognition
+  * Spam Detection
+  * Speech Recognition
 
 Our journey begins with Supervised Learning, the most popular sub-branches of Machine Learning. Algorithms here, are designed to learn by example and the models it produces are trained on well-labeled data. We, the supervisors, are teaching systems to create models that combine labeled inputs called examples to produce useful predictions on data, often previously unseen data.
 
@@ -110,9 +105,9 @@ $$ŷ = f(x)$$
 
 Where $ŷ$ (y-hat) is the predicted output determined by a mapping function $f$ based on an input value $x$. The function $f$ used to produce a prediction is created by the machine learning model during training. Let's take a look at the two sub-catagories of supervised learning: Classification and Regression.
 
-### Classification
+### **Classification**
 
-A classification algorithm will take input data and assign it classes or categories. For example: emails being spam or not spam are called `binary classification problems`. The model finds features in the data that correlate to a class and creates a `mapping function`, when provided with a new email, it will use this mapping function to classify it as either spam or not spam. Another popular example of a classification problem is human handwriting, where there are many variations of human handwriting, in both cursive and print.
+A classification algorithm will take input data and assign it classes or categories, predicting discrete values. For example: emails being spam or not spam are called `binary classification problems`. The model finds features in the data that correlate to a class and creates a `mapping function`, when provided with a new email, it will use this mapping function to classify it as either spam or not spam. Another popular example of a classification problem is human handwriting, where there are many variations of human handwriting, in both cursive and print.
 
 * **Popular Classification Algorithms**
   * Linear Classifiers
@@ -121,9 +116,14 @@ A classification algorithm will take input data and assign it classes or categor
   * K-Nearest Neighbour
   * Random Forest
 
-### Regression
+### **Regression**
 
 Regression is a predictive, statistical process, where the model tries to find the important relationship between independent and dependant variables. For instance the goal of a regressive algorithm could be to predict continuous values like infections, sales, or test scores.
+
+* **Popular Regression Algorithms**
+  * Linear Regression
+  * Lasso Regression
+  * Multivariate Regression
 
 ### **Linear Regression Model**
 
@@ -168,28 +168,11 @@ $$J(w,b) = \frac{1}{2m} \sum_{i=1}^{m} (ŷ^{(i)} - y^{(i)})^2$$
 
 * goal: to try to minimize J as a function of w and b
 
-## Tensorflow
-
-### What is TensorFlow?
-
-TensorFlow [documentation](https://tensorflow.org/) for more details.
-
-TensorFlow APIs are arranged hierarchically, with the high-level APIs built on the low-level APIs. Machine learning researchers use the low-level APIs to create and explore new machine learning algorithms.
-
-TensorFlow toolkit hierarchy
-
-* Estimators and tf.keras <-- high-level, object-oriented API
-* tf.layers, tf.losses, tf.metrics, ... <-- reusable libraries for common model communication
-* low-level API <-- extensive control
-* CPU, GPU, TPU <-- TensorFlow code runs on these platforms
-
-Along with TensorFlow, [NumPy](https://numpy.org/) is popularly used to simplify representing arrays and performing linear algebra operations along with [pandas](https://pandas.pydata.org/), which provides an easy way to represent datasets in memory.
-
-## Generalization
+### **Generalization**
 
 Just fitting our training data is not enough to do machine learning, in machine learning we're after generalization. If we specialize in hyper specificity, also called `over-fitting`, we risk having a model that is unable to cope with changes in data, for instance: a spam filter so precisely tuned that it doesn't pick up any new forms of spam mail.
 
-### What is a "Good" Model
+What is a "Good" Model?
 
 * Theoretically:
   * Interesting field: [generalization theory](https://en.wikipedia.org/wiki/Generalization_(learning))
@@ -212,9 +195,51 @@ There are three basic assumptions in all of the above:
 It is important to remember that the above assumption **can** be violated, for instance in the case of 2. people can change their shopping behavior as seasons change, and case 3. tastes and fashions can change.
 https://developers.google.com/machine-learning/crash-course/generalization/peril-of-overfitting
 
+## Unsupervised Learning
+
+Unsupervised Learning is a branch of Machine Learning that is used to manifest underlying patterns in data, and is often used as part of exploratory data analysis, where large data sets often hold surprising information that would have been otherwise ignored by researchers due to the complexity of the relationships between data-points or the amount of data that needs to be processed. For instance: Clustering DNA to study evolutionary biology, customers segmentation to build marketing strategies, or pharmaceutical drug-discovery by associating molecule properties to desired outcomes. It does not use labelled data, but rather relies on the data features.
+
+* **Applications of Unsupervised Learning**
+  * AirBnb, learns to recommends housing based on past customer interaction
+  * Amazon, learns purchases and recommends new purchases through association rule mining/learning
+  * Credit Card Fraud Detection, learns to detect fraud based on complex rule sets
+
+### Clustering
+
+Clustering is the process of grouping data into different clusters or groups. The goal of this clustering is to predict continuous values such as test scores or patterns in genetic data. Good clustering will contain data-points which are as similar to each other as possible. 
+
+Within clustering there exists Partitional Clustering and Hierarchical Clustering. **Partitional Clustering** can only have each data point associated to a single cluster wheras **Hierarchical Clustering** can have clusters within clusters with data point that may belong to many clusters, and can be organized as a tree diagram.
+
+* **Common Clustering Algorithms**
+  * K-Means
+  * Expectation Maximization
+  * Hierarchical CLuster Analysis (HCA)
+
+### Association
+
+Association attempts to find relationships between different entities, for example when looking at the purchases of shoppers, we might be able to infer what else they will purchase based on common purchasing decisions made by many other shoppers. This is called [association rule learning](https://en.wikipedia.org/wiki/Association_rule_learning).
+
+## Reinforcement Learning
+
+Reinforcement Learning enables an agent to learn in an interactive environment by trial and error based on feedback from its own actions and experiences.
+
+## Regularization
+
+## Fully-Connected Feedforward Neural Networks
+
+## Recurrent Neural Networks
+
+## Convolutional Neural Networks
+
+## Data Gathering
+
+## Data Preprocessing
+
+## Model Training
+
 ## Deep Learning
 
-What is 'Deep Learning'? A subset of Machine Learning, which itself is part of the domain of Artificial Intelligence. Where Machine Learning involves teaching computers to recognize patterns in data, Deep Learning is a Machine Learning technique that learns features and tasks directly from data. The inputs are run through often extremely complex "neural networks", with many hidden layers, hence 'deep' learning.
+What is 'Deep Learning'? A subset of Machine Learning, which itself is part of the domain of Artificial Intelligence. Where Machine Learning involves teaching computers to recognize patterns in data, Deep Learning is a Machine Learning technique that learns features and tasks directly from data. The inputs are run through often extremely complex "neural networks", with many hidden layers, hence 'deep' learning. Deep Learning can be based in supervised, unsupervised, or reinforcement learning.
 
 ### **Motivation**
 
@@ -416,40 +441,29 @@ It is safe to say enormous batches tend not to carry much more predictive value 
 * **Mini-Batch Gradient Descent**: batches of 10-1000
   * Loss & gradients are averaged over the batch
 
-## Convolutional Neural Networks for Vision Systems
-
-### Image Classification
-
-### Loss Functions and Optimization
-
-### Intro to Neural Networks
-
-### Convolutional Neural Networks (CNNs)
-
-### Training Neural Networks I
-
-### Training Neural Networks II
-
-### Deep Learning Software
-
-### CNN Architectures
-
-### Recurrent Neural Networks
-
-### Detection and Segmentation
-
-### Visualizing and Understanding
-
-### Generative Models
-
-### Deep Reinforcement Learning
-
-### Efficient Methods and Hardware for Deep Learning
-
-### Adversarial Examples and Adversarial Training
-
 ## Errata
 
-* glossary of [mathematical symbols](https://en.wikipedia.org/wiki/Glossary_of_mathematical_symbols)
-* list of mathematical symbols [by subject](https://en.wikipedia.org/wiki/List_of_mathematical_symbols_by_subject) 
-* list of mathematical [constants](https://en.wikipedia.org/wiki/List_of_mathematical_constants)
+### Toolkits and Libraries
+
+#### TensorFlow
+
+What is TensorFlow?
+
+TensorFlow [documentation](https://tensorflow.org/) for more details.
+
+TensorFlow APIs are arranged hierarchically, with the high-level APIs built on the low-level APIs. Machine learning researchers use the low-level APIs to create and explore new machine learning algorithms.
+
+TensorFlow toolkit hierarchy
+
+* Estimators and tf.keras <-- high-level, object-oriented API
+* tf.layers, tf.losses, tf.metrics, ... <-- reusable libraries for common model communication
+* low-level API <-- extensive control
+* CPU, GPU, TPU <-- TensorFlow code runs on these platforms
+
+Along with TensorFlow, [NumPy](https://numpy.org/) is popularly used to simplify representing arrays and performing linear algebra operations along with [pandas](https://pandas.pydata.org/), which provides an easy way to represent datasets in memory.
+
+### Mathematics References
+
+* Glossary of [mathematical symbols](https://en.wikipedia.org/wiki/Glossary_of_mathematical_symbols)
+* List of mathematical symbols [by subject](https://en.wikipedia.org/wiki/List_of_mathematical_symbols_by_subject) 
+* List of mathematical [constants](https://en.wikipedia.org/wiki/List_of_mathematical_constants)
