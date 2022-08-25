@@ -16,9 +16,11 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
     - [Association](#association)
   - [Reinforcement Learning](#reinforcement-learning)
   - [Regularization](#regularization)
-  - [Fully-Connected Feedforward Neural Networks](#fully-connected-feedforward-neural-networks)
-  - [Recurrent Neural Networks](#recurrent-neural-networks)
-  - [Convolutional Neural Networks](#convolutional-neural-networks)
+    - [**How to Approach Overfitting?**](#how-to-approach-overfitting)
+  - [Neural Network Architectures](#neural-network-architectures)
+    - [Fully-Connected Feedforward Neural Networks](#fully-connected-feedforward-neural-networks)
+    - [Recurrent Neural Networks](#recurrent-neural-networks)
+    - [Convolutional Neural Networks](#convolutional-neural-networks)
   - [Data Gathering](#data-gathering)
   - [Data Preprocessing](#data-preprocessing)
   - [Model Training](#model-training)
@@ -243,11 +245,27 @@ Unlike unsupervised learning, the goal of reinforcement is to find a suitable mo
 
 A core problem in Deep Learning is to create a model that performs well on training data AND new test data. The most common problem faced in Deep Learning as it turns out, is `overfitting`. This is a situation where your model performs exceptionally well on training data, but not on new data because the model is blind to new variations. Conversely, we also have scenarios where `underfitting` can occur, which is when our model is unable to draw reasonable predictions because it under estimates the data.
 
-## Fully-Connected Feedforward Neural Networks
+### **How to Approach Overfitting?**
 
-## Recurrent Neural Networks
+* Dropout
+  * Good results, Very popular
+  * At every iteration, randomly removes nodes and their connections
+* Augmentation
+  * Some application do better with more data $\rarr$ Better Model
+  * Synthesize data and add it to the training set
+  * Good approach for classification, used widely in object recognition
+* Early Stopping
+  * Commonly used, simple to implement
+  * Training error decreases steadily, but validation errors increase after a certain point
+  * Stop training when validation starts to increase
 
-## Convolutional Neural Networks
+## Neural Network Architectures
+
+### Fully-Connected Feedforward Neural Networks
+
+### Recurrent Neural Networks
+
+### Convolutional Neural Networks
 
 ## Data Gathering
 
