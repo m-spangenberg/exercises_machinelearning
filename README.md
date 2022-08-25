@@ -18,9 +18,9 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
   - [Regularization](#regularization)
     - [**How to Approach Overfitting?**](#how-to-approach-overfitting)
   - [Neural Network Architectures](#neural-network-architectures)
-    - [Fully-Connected Feedforward Neural Networks](#fully-connected-feedforward-neural-networks)
-    - [Recurrent Neural Networks](#recurrent-neural-networks)
-    - [Convolutional Neural Networks](#convolutional-neural-networks)
+    - [**Fully-Connected Feedforward Neural Networks (FNN)**](#fully-connected-feedforward-neural-networks-fnn)
+    - [**Recurrent Neural Networks (RNN)**](#recurrent-neural-networks-rnn)
+    - [**Convolutional Neural Networks (CNN)**](#convolutional-neural-networks-cnn)
   - [Deep Learning](#deep-learning)
     - [**Motivation**](#motivation)
     - [**Neural Networks**](#neural-networks)
@@ -262,15 +262,83 @@ A core problem in Deep Learning is to create a model that performs well on train
 
 ## Neural Network Architectures
 
-### Fully-Connected Feedforward Neural Networks
+### **Fully-Connected Feedforward Neural Networks (FNN)**
 
-### Recurrent Neural Networks
+By fully connected, we mean each neuron is connected to every neuron in the subsequent layer with no backwards connections. As we've found, each neuron contains an activation function that changes the output of neuron when given an input, and each type of non-linear activation function (sigmoid, tanh, and rectified linear unit) has their own pros and cons. We use them at various layers based on the problem they're each meant to solve. With these fundamentals we are capable of building a wide variety of fully-connected feed forward networks.
 
-### Convolutional Neural Networks
+* Inputs
+* Outputs
+* Hidden Layers
+* Neurons per Hidden Layer
+* Activation Functions
+
+All this allows us to build powerful deep neural networks capable of solving complex problems. The more neurons we add to each hidden layer, the wider the network becomes, and the more hidden layers we add to the network, the deeper it becomes. But there is always a complexity trade-off, and more neurons require larger amounts of computational resources. Because these networks are not linear in nature, the complexity can increase very quickly, consuming many resources and taking longer and longer to train.
+
+### **Recurrent Neural Networks ([RNN](https://en.wikipedia.org/wiki/Recurrent_neural_network))**
+
+* **Applications of RNNs**
+  * Natural Language Processing
+  * Sentiment Analysis
+  * DNA Sequence Classification
+  * Speech Recognition
+  * Language Translation
+
+Where Fully-Connected Feedforward Neural Networks break down is that they take a fixed-sized input and produces a fixed-sized output but are unfortunately unable to model every problem we face. Information about the past must be supplied to the network, because it can't handle sequential data points as it does not share parameters over time.
+
+Sharing parameters gives the network the ability to look for a given feature everywhere in the sequence, rather than just a certain area. To achieve this we need a specific framework able to deal with the following:
+
+* Deal with variable length sequences
+* Maintain sequence order
+* Keep track of long-term dependencies
+* Share parameters across the sequence
+
+This is where Recurrent Neural Networks come in. They can operate effectively on sequences of data with variable input length and use a feedback loop in the hidden layers allowing it to use knowledge of a previous state as input to make new predictions. We can liken this to giving the neural network a short term memory, allowing it to model sequential data.
+
+* **How do we train an RNN?**
+  * We can think of each time-step as a layer
+  * Backpropagation through time (BTT) is applied for every sequence data point instead of the entire sequence
+  * Gradients used to make adjustments to weights and biases, allowing it to learn
+  * VGP renders RNNs unable to learn long-range dependencies
+
+We're however faced with a problem, to have a short term memory, we must employ backpropagation which in turn causes the vanishing gradient problem. In the VGP, gradients of a layer are calculated based on the gradients of a previous layer and if the initial gradient is small, adjustments to the subsequent layers will be even smaller, giving rise to vanishing gradients.
+
+To remedy the VGP problem, we can employ two variants of Recurring Neural Networks.
+
+* **LSTM** - Long Short Term Memory
+  * Input Gate
+  * Output Gate
+  * Forget Gate
+* **GRNN** - Gated Recurrent Neural Network
+  * Update Gate
+  * Reset Gate
+
+Both these variants are capable of learning long-term dependencies using mechanisms called `gates`. These gates are [tensor](https://en.wikipedia.org/wiki/Tensor) operations that can learn what to add or remove from the hidden state of the feedback loop.
+
+### **Convolutional Neural Networks (CNN)**
+
+* **Applications of CNNs**
+  * Computer Vision
+  * Image Recognition
+  * Image Processing
+  * Image Segmentation
+  * Video Analysis
+
+A type of Deep Neural Network Architecture designed for specific tasks like image classification. They are inspired by the organization of neurons in the visual cortex of the human brain. They exceed at processing data like images, audio and video. Like a FNN, they are composed of an Input, Output and several Hidden neuron layers. A CNN derives its name from the hidden layers employed in its creation and can consist of:
+
+* Convolutional Layers
+* Pooling Layers
+* Fully Connected Layers
+* Normalization Layers
+
+Instead of activation functions, convolution and pooling functions are used instead. The input fo the CNN is typically a 2D array of neurons, corresponding to pixels if we're doing image classification. The output is typically 1 dimensional. [Convolution](https://en.wikipedia.org/wiki/Convolution) is a technique that allows us to extract visual features from a 2D array in small chunks. Each neuron in a convolution layer is responsible for a small cluster of neurons in a preceding layer. The bounding box that determines a cluster of neurons is called a filter, also called a kernel. We can conceptualize the filter as moving across the image performing a function on individual regions of the image and then sending results to a corresponding neuron in the convolution layer. The convolution of two functions $f$ and $g$ is defined as follows, and is in fact the [dot product](https://en.wikipedia.org/wiki/Dot_product) of the input function and the kernel function.
+
+$$(f*g)(i)=\sum_{j=1}^{m}g(j)\cdot f(i-j+m/2)$$
+
+Pooling, also known as sub-sampling or down-sampling, is the next step. It's objective is to further reduce the numbers of neurons necessary in subsequent layers of the network, while still retaining relevant information. There exists two types of pooling: Max and Min pooling, where max pooling is used to pick the maximum value from the selected region and min the minimum.
 
 ## Deep Learning
 
-What is 'Deep Learning'? A subset of Machine Learning, which itself is part of the domain of Artificial Intelligence. Where Machine Learning involves teaching computers to recognize patterns in data, Deep Learning is a Machine Learning technique that learns features and tasks directly from data. The inputs are run through often extremely complex "neural networks", with many hidden layers, hence 'deep' learning. Deep Learning can be based in supervised, unsupervised, or reinforcement learning.
+What is '[Deep Learning](https://en.wikipedia.org/wiki/Deep_learning)'? A subset of Machine Learning, which itself is part of the domain of Artificial Intelligence. Where Machine Learning involves teaching computers to recognize patterns in data, Deep Learning is a Machine Learning technique that learns features and tasks directly from data. The inputs are run through often extremely complex "neural networks", with many hidden layers, hence 'deep' learning. Deep Learning can be based in supervised, unsupervised, or reinforcement learning.
 
 ### **Motivation**
 
@@ -473,6 +541,12 @@ It is safe to say enormous batches tend not to carry much more predictive value 
   * Loss & gradients are averaged over the batch
 
 ## Building a Deep Learning Model
+
+1. Gather Data
+2. Preprocess Data
+3. Train Model
+4. Evaluate Model
+5. Optimize Model
 
 ### Data Gathering
 
