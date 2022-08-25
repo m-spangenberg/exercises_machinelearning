@@ -15,34 +15,33 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
   * Clustering
   * Anomaly Detection
   * Dimensionality Reduction
+* Reinforcement Learning
 
 - [Machine Learning](#machine-learning)
+  - [Standard Notation](#standard-notation)
   - [Supervised Learning](#supervised-learning)
-    - [Univariate Linear Regression](#univariate-linear-regression)
-      - [Standard Notation & Terminology](#standard-notation--terminology)
-      - [Linear Regression Model](#linear-regression-model)
-      - [Cost Function Formula](#cost-function-formula)
-      - [Cost Function Intuition](#cost-function-intuition)
-    - [Gradient Descent](#gradient-descent)
-      - [Implementing Gradient Descent](#implementing-gradient-descent)
-      - [Stochastic Gradient Descent](#stochastic-gradient-descent)
+    - [**Linear Regression Model**](#linear-regression-model)
+    - [**Cost Function Formula**](#cost-function-formula)
+    - [**Cost Function Intuition**](#cost-function-intuition)
   - [Tensorflow](#tensorflow)
     - [What is TensorFlow?](#what-is-tensorflow)
   - [Generalization](#generalization)
     - [What is a "Good" Model](#what-is-a-good-model)
   - [Deep Learning](#deep-learning)
-    - [Motivation](#motivation)
-    - [Neural Networks](#neural-networks)
-    - [Learning Process](#learning-process)
-      - [Forward Propagation (FNN)](#forward-propagation-fnn)
-      - [Back Propagation (BP)](#back-propagation-bp)
-      - [Learning Algorithm](#learning-algorithm)
+    - [**Motivation**](#motivation)
+    - [**Neural Networks**](#neural-networks)
+    - [**Forward Propagation (FNN)**](#forward-propagation-fnn)
+    - [**Back Propagation (BP)**](#back-propagation-bp)
+    - [**Learning Algorithm**](#learning-algorithm)
   - [Neural Network Terminology](#neural-network-terminology)
     - [**Activation Function**](#activation-function)
     - [**Loss Function**](#loss-function)
     - [**Optimizers**](#optimizers)
-    - [Parameters and Hyperparameters](#parameters-and-hyperparameters)
-    - [Epochs, Batches, Batch Sizes, and Iterations](#epochs-batches-batch-sizes-and-iterations)
+    - [**Parameters and Hyperparameters**](#parameters-and-hyperparameters)
+    - [**Epochs, Batches, Batch Sizes, and Iterations**](#epochs-batches-batch-sizes-and-iterations)
+  - [Gradient Descent](#gradient-descent)
+    - [**Implementing Gradient Descent**](#implementing-gradient-descent)
+    - [**Stochastic Gradient Descent**](#stochastic-gradient-descent)
   - [Convolutional Neural Networks for Vision Systems](#convolutional-neural-networks-for-vision-systems)
     - [Image Classification](#image-classification)
     - [Loss Functions and Optimization](#loss-functions-and-optimization)
@@ -61,15 +60,7 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
     - [Adversarial Examples and Adversarial Training](#adversarial-examples-and-adversarial-training)
   - [Errata](#errata)
 
-## Supervised Learning
-
-In supervised machine learning, we're learning to create models that combine inputs to produce useful predictions on data, often previously unseen data. 
-
-### Univariate Linear Regression
-
-This is Linear Regression with one variable, for instance: The price of houses given their size.
-
-#### Standard Notation & Terminology
+## Standard Notation
 
 See more [machine learning glossary](https://developers.google.com/machine-learning/glossary)
 
@@ -112,9 +103,13 @@ See more [machine learning glossary](https://developers.google.com/machine-learn
   * expressed as an upside down triangle known as a Del or nabla $\nabla$
   * The vector of partial derivatives with respect to all independent variables
 
-#### Linear Regression Model
+## Supervised Learning
 
-Our training set is fed features (x) and targets (y) and our supervised algorithm will produce some function (a hypothesis, which is our model). The job of this function is to take a new feature (input variable) and produce an estimate, also called y-hat, which is a predicted value of y in a regression equation.
+In supervised machine learning, we're learning to create models that combine inputs to produce useful predictions on data, often previously unseen data. 
+
+### **Linear Regression Model**
+
+Often called **Univariate Linear Regression**, or Linear Regression with one variable, for instance: The price of houses given their size. Our training set is fed features (x) and targets (y) and our supervised algorithm will produce some function (a hypothesis, which is our model). The job of this function is to take a new feature (input variable) and produce an estimate, also called y-hat, which is a predicted value of y in a regression equation.
 
 $$f_{wb}(x) = wx+b$$
 
@@ -126,7 +121,7 @@ $$ŷ^{(i)} = f_{w,b}(x^{(i)}) = wx^{(i)}+b$$
 
 The formula above shows our predicted value, y-hat for the i<sup>th</sup> training sample
 
-#### Cost Function Formula
+### **Cost Function Formula**
 
 The question is: how do we find values for parameters w and b so that y-hat is close to the true target y<sup>i</sup>?
 
@@ -138,7 +133,7 @@ $$J(w,b) = \frac{1}{2m} \sum_{i=1}^{m} (ŷ^{(i)} - y^{(i)})^2$$
 
 In machine learning there exists different cost functions for different applications, but the `squared error cost function` is the by far the most commonly used for linear regression and seems to give good results for many applications.
 
-#### Cost Function Intuition
+### **Cost Function Intuition**
 
 To recap, here's what we've seen about the cost function so far:
 
@@ -152,43 +147,6 @@ $$f_{w,b}(x) = wx+b$$
 $$J(w,b) = \frac{1}{2m} \sum_{i=1}^{m} (ŷ^{(i)} - y^{(i)})^2$$
 
 * goal: to try to minimize J as a function of w and b
-
-### Gradient Descent
-
-Gradient Descent is an algorithm which is used extensively in machine learning, from linear regression to deep learning models, and is one of the most important building blocks in machine learning. Essentially, We have the cost function J(w,b) that we want to minimize, and it turns out we can use gradient decent to do just this to find the smallest possible cost value for J. We start off with some initial guesses for our parameters w and b, then we keep changing w and b until the cost of J settles at or near a minimum, descending downhill if you like, towards what is commonly referred to as the local minima. It's also possible for there to be more than one local minimum.
-
-#### Implementing Gradient Descent
-
-On each **gradient step**, w, the parameter, is updated to the old value of w minus Alpha times the term d/dw of the cost function J of wb. We are simply taking modifying our parameter w by taking the current value of w and adjusting it a small amount.
-
-$$w = w-α \frac{d}{dw} J(w,b)$$
-
-$$b = b-α \frac{d}{dw} J(w,b)$$
-
-To break down the above equation from left to right:
-
-* assign the product from the RHS to the LHS variable called w
-* in this equation, Alpha or the symbol α, is called our learning rate
-  * the learning rate is hoe aggressive the gradient descent step size is
-* the [derivative term](https://en.wikipedia.org/wiki/Derivative) of the cost function J
-  * the direction in which we want to step our gradient descent
-
-We repeat the two steps shown in the equation until we reach a local minimum, also called convergence, which is when the values of w and b no longer change much in relation to their previous values. The key here is not to attempt to find the most efficient learning rate, but rather a learning rate that converges quickly enough without being too large and over-shooting the local minimum, or too small, and needing too much processing power.
-
-#### Stochastic Gradient Descent
-
-In gradient descent, a batch is the total number of examples you use to calculate the gradient in a single iteration and up to this point we have assumed the batch has been our entire dataset. When working at scale, data sets often contain billions or even hundreds of billions of examples, along with many redundant data-points.
-
-It is safe to say enormous batches tend not to carry much more predictive value than large batches. What we ideally want it to get the right gradient on average for much less computation. To achieve this we can employ Stochastic Gradient Descent, the term "stochastic" means we are sampling one example comprising each batch at random. While SGD works, it can be quite noisy.
-
-**Mini-batch Stochastic Gradient Descent** is a compromise between full-batch iteration and SGD where we sample between 10 and a 1000 examples chosen at random. Even though gradient descent so far has been focused on single features for simplicity's sake, it also works on multivariate feature sets.
-
-* Could compute gradient over entire data set on each step, but this turns out to be unnecessary
-* Computing gradient on small data samples works well
-  * On every step, get a new random sample
-* **Stochastic Gradient Descent**: one example at a time
-* **Mini-Batch Gradient Descent**: batches of 10-1000
-  * Loss & gradients are averaged over the batch
 
 ## Tensorflow
 
@@ -238,7 +196,7 @@ https://developers.google.com/machine-learning/crash-course/generalization/peril
 
 What is 'Deep Learning'? A subset of Machine Learning, which itself is part of the domain of Artificial Intelligence. Where Machine Learning involves teaching computers to recognize patterns in data, Deep Learning is a Machine Learning technique that learns features and tasks directly from data. The inputs are run through often extremely complex "neural networks", with many hidden layers, hence 'deep' learning.
 
-### Motivation
+### **Motivation**
 
 Why even use Deep Learning? Traditional ML, no matter how complex, will always be machine-like. It produces systems that require domain expertise and human intervention. The key idea in DL is that by feeding our data into a neural network, the system will teach itself, requiring less direct interaction by humans. These algorithms have existed for longer than most people are aware, and have only really come into their own because of the following factors:
 
@@ -246,15 +204,13 @@ Why even use Deep Learning? Traditional ML, no matter how complex, will always b
 * More computational power (GPU's, TPU's and other custom processing units)
 * New software architectures (Tensorflow, PyTorch, ML tool sets and libraries)
 
-### Neural Networks
+### **Neural Networks**
 
 What is a Neural Network? Neural Networks are constructed from neurons, like neurons in the brain, they are interconnected and layered in networks. These networks take data as input and train themselves to find patterns in data. These Neural Networks then predicts outputs for similar sets of data.
 
 ![Multi Layer Neural Network](https://upload.wikimedia.org/wikipedia/commons/c/c2/MultiLayerNeuralNetworkBigger_english.png "Multi Layer Neural Network - https://commons.wikimedia.org/wiki/File:MultiLayerNeuralNetworkBigger_english.png")
 
-### Learning Process
-
-#### Forward Propagation ([FNN](https://en.wikipedia.org/wiki/Feedforward_neural_network))
+### **Forward Propagation ([FNN](https://en.wikipedia.org/wiki/Feedforward_neural_network))**
 
 $$ŷ =  \sigma \sum_{i=1}^{n}x_{i}w_{i}+b_{i}$$
 
@@ -273,11 +229,11 @@ Some key insights:
 * **Bias** is akin to opinion between related neurons and shifts $\sigma$ [right or left](https://en.wikipedia.org/wiki/Scalar_(mathematics))
 
 
-#### Back Propagation ([BP](https://en.wikipedia.org/wiki/Backpropagation))
+### **Back Propagation ([BP](https://en.wikipedia.org/wiki/Backpropagation))**
 
 Back propagation is much like forward propagation, except here information here goes from output layer to hidden layers. Let's assume our NN produces a prediction, which can be either right or wrong. In Back Propagation, the NN evaluates its own performance with a [Loss Function](https://en.wikipedia.org/wiki/Loss_function) in order to quantify the deviation from the expected output. This deviation is what is fed back to the hidden layers, so weights and biases can be adjusted and the training process can improve.
 
-#### Learning Algorithm
+### **Learning Algorithm**
 
 * Initialize network's weights and biases with random values
 * Supply the input neurons with data
@@ -287,6 +243,8 @@ Back propagation is much like forward propagation, except here information here 
 * Iterate through previous steps until loss is minimized
 
 ## Neural Network Terminology
+
+Some basic terminology used in Machine and Deep Learning.
 
 ### **Activation Function**
 
@@ -364,12 +322,12 @@ Back propagation is much like forward propagation, except here information here 
     * Uses the concept of momentum
       * our way of telling the network whether we want past changes affect the new change
     * Used widely in practice
-* Take aways
+* Takeaways
   * There are many optimizers, easy to be overwhelmed by the complexity of choice
   * All of them have the same goal: Minimizing the loss function
   * Trial and error will help us develop an intuition for which ones are preferable
 
-### Parameters and Hyperparameters
+### **Parameters and Hyperparameters**
 
 * What are **Model Parameters**?
   * Variables internal to the neural network
@@ -379,7 +337,7 @@ Back propagation is much like forward propagation, except here information here 
   * Not set manually
   * Saved as part of the learned model
   * Exampels: **Weights**, **Biases**
-* What are **Hyperparamters**?
+* What are **Hyperparameters**?
   * Configurations external to the neural network model
   * Value cannot be estimated directly from data
   * No easy wat to find the best value, takes trial and error
@@ -387,7 +345,7 @@ Back propagation is much like forward propagation, except here information here 
   * All manually specified parameters are hyperparameters
   * Examples: **Learning Rate**, [C](https://stackoverflow.com/questions/12809633/parameter-c-in-svm-standard-to-find-best-parameter) (penalty/error) & $\sigma$ (standard deviation) in [Support Vector Machines](https://scikit-learn.org/stable/modules/svm.html)
 
-### Epochs, Batches, Batch Sizes, and Iterations
+### **Epochs, Batches, Batch Sizes, and Iterations**
 
 * **Epoch**
   * When the ENTIRE dataset is passed forward and backward through the neural network only ONCE
@@ -399,6 +357,44 @@ Back propagation is much like forward propagation, except here information here 
   * Batch Size is simply the total number of training examples in a single Batch
 * **Iterations**
   * The number of batches needed to complete one epoch
+    * 34000 training examples in 500 batches will take 68 iterations to complete 1 epoch
+
+## Gradient Descent
+
+Gradient Descent is an algorithm which is used extensively in machine learning, from linear regression to deep learning models, and is one of the most important building blocks in machine learning. Essentially, We have the cost function J(w,b) that we want to minimize, and it turns out we can use gradient decent to do just this to find the smallest possible cost value for J. We start off with some initial guesses for our parameters w and b, then we keep changing w and b until the cost of J settles at or near a minimum, descending downhill if you like, towards what is commonly referred to as the local minima. It's also possible for there to be more than one local minimum.
+
+### **Implementing Gradient Descent**
+
+On each **gradient step**, w, the parameter, is updated to the old value of w minus Alpha times the term d/dw of the cost function J of wb. We are simply taking modifying our parameter w by taking the current value of w and adjusting it a small amount.
+
+$$w = w-α \frac{d}{dw} J(w,b)$$
+
+$$b = b-α \frac{d}{dw} J(w,b)$$
+
+To break down the above equation from left to right:
+
+* assign the product from the RHS to the LHS variable called w
+* in this equation, Alpha or the symbol α, is called our learning rate
+  * the learning rate is hoe aggressive the gradient descent step size is
+* the [derivative term](https://en.wikipedia.org/wiki/Derivative) of the cost function J
+  * the direction in which we want to step our gradient descent
+
+We repeat the two steps shown in the equation until we reach a local minimum, also called convergence, which is when the values of w and b no longer change much in relation to their previous values. The key here is not to attempt to find the most efficient learning rate, but rather a learning rate that converges quickly enough without being too large and over-shooting the local minimum, or too small, and needing too much processing power.
+
+### **Stochastic Gradient Descent**
+
+In gradient descent, a batch is the total number of examples you use to calculate the gradient in a single iteration and up to this point we have assumed the batch has been our entire dataset. When working at scale, data sets often contain billions or even hundreds of billions of examples, along with many redundant data-points.
+
+It is safe to say enormous batches tend not to carry much more predictive value than large batches. What we ideally want it to get the right gradient on average for much less computation. To achieve this we can employ Stochastic Gradient Descent, the term "stochastic" means we are sampling one example comprising each batch at random. While SGD works, it can be quite noisy.
+
+**Mini-batch Stochastic Gradient Descent** is a compromise between full-batch iteration and SGD where we sample between 10 and a 1000 examples chosen at random. Even though gradient descent so far has been focused on single features for simplicity's sake, it also works on multivariate feature sets.
+
+* Could compute gradient over entire data set on each step, but this turns out to be unnecessary
+* Computing gradient on small data samples works well
+  * On every step, get a new random sample
+* **Stochastic Gradient Descent**: one example at a time
+* **Mini-Batch Gradient Descent**: batches of 10-1000
+  * Loss & gradients are averaged over the batch
 
 ## Convolutional Neural Networks for Vision Systems
 
