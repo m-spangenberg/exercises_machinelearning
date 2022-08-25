@@ -221,9 +221,27 @@ Association attempts to find relationships between different entities, for examp
 
 ## Reinforcement Learning
 
-Reinforcement Learning enables an agent to learn in an interactive environment by trial and error based on feedback from its own actions and experiences.
+* **Applications of Reinforcement Learning**
+  * Robotics and Aircraft Motion Control
+  * Business Strategy and Planning
+  * Traffic Light Control Systems
+  * Web System Configuration
+
+Reinforcement Learning enables an `agent` to learn in an interactive environment by trial and error based on feedback from its own actions and experiences. Like supervised learning, it uses mapping between an input and output, but unlike supervised learning where feedback is a correct set of actions, reinforcement learning uses rewards and punishments as signals for positive and negative behaviour.
+
+Unlike unsupervised learning, the goal of reinforcement is to find a suitable model that wil maximize the total cumulative reward for the agent. We call these goal oriented algorithms, for example: they will try to maximize points won in a game over many moves, where they are penalized for wrong decisions and rewarded for right ones. RL is usually modeled as a [Markov Decision Process](https://en.wikipedia.org/wiki/Markov_decision_process) or [Q-Learning](https://en.wikipedia.org/wiki/Q-learning).
+
+* **Key Terms**
+  * State - the current situation of the agent
+  * Environment - the world the agent operates in
+  * Agent - the model's decisions manifested
+  * Policy - maps the agents state to the agents actions
+  * Action - the agents effect on the environment
+  * Reward - feedback from the environment
 
 ## Regularization
+
+A core problem in Deep Learning is to create a model that performs well on training data AND new test data. The most common problem faced in Deep Learning as it turns out, is `overfitting`. This is a situation where your model performs exceptionally well on training data, but not on new data because the model is blind to new variations. Conversely, we also have scenarios where `underfitting` can occur, which is when our model is unable to draw reasonable predictions because it under estimates the data.
 
 ## Fully-Connected Feedforward Neural Networks
 
@@ -251,7 +269,7 @@ Why even use Deep Learning? Traditional ML, no matter how complex, will always b
 
 ### **Neural Networks**
 
-What is a Neural Network? Neural Networks are constructed from neurons, like neurons in the brain, they are interconnected and layered in networks. These networks take data as input and train themselves to find patterns in data. These Neural Networks then predicts outputs for similar sets of data.
+What is a Neural Network? Neural Networks are constructed from neurons, like neurons in the brain, they are interconnected and layered in networks. These networks take data as input and train themselves to find patterns in data. These Neural Networks then predict outputs for similar sets of data.
 
 ![Multi Layer Neural Network](https://upload.wikimedia.org/wikipedia/commons/c/c2/MultiLayerNeuralNetworkBigger_english.png "Multi Layer Neural Network - https://commons.wikimedia.org/wiki/File:MultiLayerNeuralNetworkBigger_english.png")
 
