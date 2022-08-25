@@ -2,7 +2,7 @@
 
 # Machine Learning
 
-Below are my notes on machine learning theory from [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford Lectures](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [Practical Deep Learning for Coders](https://course.fast.ai/).
+Below are my notes on machine learning theory from [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [Practical Deep Learning for Coders](https://course.fast.ai/).
 
 * Supervised Learning
   * Linear Regression Models
@@ -93,6 +93,11 @@ See more [machine learning glossary](https://developers.google.com/machine-learn
   * What is the value of a house?
 * A **classification** model predicts discrete values
   * Is this an image of a dog, or a cat?
+* **Sum** of common terms
+  * Uppercase letter Sigma $\Sigma$, used to denote a sum of multiple terms
+* **Standard Deviation**
+  * The lowercase letter sigma $\sigma$ is used to represent [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation)
+  * a measure of the amount of variation or dispersion of a set of values
 
 #### Linear Regression Model
 
@@ -247,7 +252,7 @@ In forward propagation the following processes occur:
 3. $b_{n}$ : The inputs are multiplied by these weights and their sum sent as input to biased neurons in the hidden layer $b_{1}b_{2}b_{3}b_{...}b_{n}$
 4. $\sigma$ : The total of the biased neuron, plus the weighted sum from the original input is then passed to a [non-linear activation function](https://en.wikipedia.org/wiki/Activation_function)
 5. The activation function decides if the neuron can contribute to the next layer
-6. $ŷ$ : The output layer is a form of probability where the neuron with the highest value determines what the output is
+6. $ŷ$ : The output layer is a form of probability or estimation where the neuron with the highest value determines what the output is
 
 Some key insights:
 
@@ -270,10 +275,8 @@ Back propagation is much like forward propagation, except here information here 
 
 ### Neural Network Terminology
 
-* Activation Function
+* **Activation Function**
   * Introduce 'Non-Linearity' in the Network
-    * Why use Non-Linear Activation Functions?
-      * 
   * Decides whether a neuron can contribute (activation threshold)
   * Which function should we use?
     * a. **Step Function** that is either 0 or 1 does not work in every scenario
@@ -296,6 +299,23 @@ Back propagation is much like forward propagation, except here information here 
     * f. **Leaky ReLU Function**
   * Binary Classifications try: **Sigmoid**
   * If there is uncertainty try: **ReLU or modified ReLU**
+* **Loss Function**
+  * A way to quantify the deviation of the predicted output by the neural network to the expected output
+  * Simply put: A mathematical way of calculating how 'wrong' the output of our neural network is
+  * Different types of loss functions exist
+    * Regression: Squared Error, Huber Loss
+    * Binary Classification: Binary Cross-Entropy, Hinge Loss
+    * Multi-Class Classification: Multi-Class Cross Entropy, Kullback Divergence
+* **Optimizers**
+  * During training, we adjust parameters (weights and biases) to minimize the loss function
+    * HOW do we achieve this?
+      * By updating the network based on the output of the loss function
+      * Loss funtion guides the optimizer
+      * Descending towards the lowest `local minimum` is our process of `reducing error`
+    * **Gradient Descent**
+      * Most popular optimizer
+      * Iterative algorithm that starts at a random point
+      * Iterates until it reaches the lowest point (minimum)
 
 ## Convolutional Neural Networks for Vision Systems
 
