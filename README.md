@@ -3,7 +3,6 @@
 Below are my notes on machine learning theory from [MIT OpenCourseware](https://www.youtube.com/watch?v=h0e2HAPTGF4), [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [Practical Deep Learning for Coders](https://course.fast.ai/).
 
 - [Machine Learning](#machine-learning)
-  - [Standard Notation](#standard-notation)
   - [What is Machine Learning?](#what-is-machine-learning)
   - [Supervised Learning](#supervised-learning)
     - [**Classification**](#classification)
@@ -43,49 +42,12 @@ Below are my notes on machine learning theory from [MIT OpenCourseware](https://
     - [**Model Training & Evaluation**](#model-training--evaluation)
     - [**Model Optimization**](#model-optimization)
   - [Errata](#errata)
+  - [Standard Notation](#standard-notation)
+      - [Additional Learning Material](#additional-learning-material)
+      - [Glossary](#glossary)
     - [Toolkits and Libraries](#toolkits-and-libraries)
       - [TensorFlow](#tensorflow)
     - [Dataset Aggregators](#dataset-aggregators)
-    - [Mathematics References](#mathematics-references)
-
-## Standard Notation
-
-See more [machine learning glossary](https://developers.google.com/machine-learning/glossary)
-
-* **Features** are the input variables describing our data
-  * Typically represented by the variables {$x_{1}x_{2}x_{...}x_{n}$}
-  * $x$ = "input" variable feature
-* **label** is the output variable we're predicting
-  * Typically represented by the variable $y$
-  * $y$ = "output" target feature
-* $m$ = number of training examples
-* **Example** is one piece or instance of data
-  * a **Labeled Example** has {features, label}: (x,y)
-  * These labeled examples are used to train our model.
-  * $(x,y)$ = single training example
-  * $(x^{(i)},y^{(i)})$ = the $i^{th}$ training example
-* an **Unlabeled Example** has {features, ?}: (x,?)
-  * Used for making predictions on new data (inference)
-* **Model** maps examples to predicted labels
-  * Defined by internal parameters, which are learned
-  * $w, b$ = parameters, weights or coefficients
-  * y-hat or $ŷ$ or $y'$ = prediction or estimate
-* **Training** means creating or learning the model. 
-  * a model gradually learns the relationships between features and labels
-* **Inference** means applying the trained model to unlabeled examples
-* **Sum** of common terms
-  * Uppercase letter Sigma $\Sigma$, used to denote a sum of multiple terms
-* **Standard Deviation**
-  * The lowercase letter sigma $\sigma$ is used to represent [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation)
-  * a measure of the amount of variation or dispersion of a set of values
-* **Partial Derivative**
-  * Cursive $\partial$ usually to denote a [partial derivative](https://en.wikipedia.org/wiki/Partial_derivative)
-  * a derivative is the rate of change of a function with respect to a variable
-  * a partial derivative is the derivative of a function of several variables with respect to change in just one of its variables
-* **Gradient**
-  * used in vector calculus
-  * expressed as an upside down triangle known as a Del or nabla $\nabla$
-  * The vector of partial derivatives with respect to all independent variables
 
 ## What is Machine Learning?
 
@@ -104,8 +66,7 @@ In the late 50's, [Art Samuel](https://en.wikipedia.org/wiki/Arthur_Samuel) said
     * Essentially a predictive activity
     * Assumes that the past predict the future
 
-Our interest is in extending generalization to the learning algorithm, so that it has the ability to make useful inferences about the world around it from the implicit patterns in its input data. The basic paradigm then is that we have data, which we feed to an algorithm, which produces a model, a sort of kernel of truth that is its understanding of a dataset, which can then be used to infer useful information from new data. This basic paradigm has two variations, the supervised and the unsupervised learning algorithm.
-
+Our interest is in extending generalization to the learning algorithm, so that it has the ability to make useful inferences about the world around it from the implicit patterns in its input data. The basic paradigm then is that we have data, which we feed to an algorithm, which produces a model, a sort of kernel of truth that is its understanding of a dataset, which can then be used to infer useful information from new data. This basic paradigm of predictions and classifications has two variations, the **supervised** and the **unsupervised** learning algorithm.
 
 ## Supervised Learning
 
@@ -196,7 +157,7 @@ $$J(w,b) = \frac{1}{2m} \sum_{i=1}^{m} (ŷ^{(i)} - y^{(i)})^2$$
 
 ### **Generalization**
 
-Just fitting our training data is not enough to do machine learning, in machine learning we're after generalization. If we specialize in hyper specificity, also called `over-fitting`, we risk having a model that is unable to cope with changes in data, for instance: a spam filter so precisely tuned that it doesn't pick up any new forms of spam mail.
+Just fitting our training data is not enough to do machine learning, in machine learning we're after generalization. If we specialize in hyper specificity, also called `over-fitting`, we risk having a model that is unable to cope with changes in data, for instance: a spam filter so precisely tuned that it doesn't pick up any new forms of spam mail, or one that produces `false-negatives`, and `false-positives`.
 
 What is a "Good" Model?
 
@@ -219,7 +180,6 @@ There are three basic assumptions in all of the above:
 3. We always pull from the **same distribution**: including training, validation and test sets
 
 It is important to remember that the above assumption **can** be violated, for instance in the case of 2. people can change their shopping behavior as seasons change, and case 3. tastes and fashions can change.
-https://developers.google.com/machine-learning/crash-course/generalization/peril-of-overfitting
 
 ## Unsupervised Learning
 
@@ -588,7 +548,7 @@ The splitting or **Partitioning** of our dataset relies on two factors, the tota
 
 **How large should our splits be?** This involves two ideas which are in tension, the larger our training set, the better our learning model will be, but the larger our test set is, the higher our confidence will be that we're making accurate predictions. Models with many hyperparameters are easier to validate because of an excess of testable data in the set, but if we have a small dataset we might possibly need to make use of [cross-validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)). There also exists edge cases where we might not need a validation set because the hyperparameters are difficult to tune. This train-test-validate ratio is dependant on your unique requirements, and you will develop an intuition for the appropriate splits as you build more models.
 
-**Cross-validation** is when we take our data set and split it into a Training and Testing set, we then set aside the Testing set and use a randomly chosen portion of the Training set for Validation purposes. We then use our Training set to produce multiple splits of the Training and Validation sets. The main advantage of cross-validation, is that it helps us avoid over-fitting. We use what is called K-Fold Cross-Validation to reduce variability in the data. To achieve this we can perform multiple rounds of cross-validation using different partitions and then average the results over all the rounds.
+**Cross-validation** allows us to compare different machine learning methods and get a sense for how well they will work in practice, we achieve this by taking our data set and splitting it into a Training and Testing set, we then set aside the Testing set and use a randomly chosen portion of the Training set for Validation purposes. We then use our Training set to produce multiple splits of the Training and Validation sets. The main advantage of cross-validation, is that it helps us avoid over-fitting. We use what is called K-Fold Cross-Validation to reduce variability in the data. To achieve this we can perform multiple rounds of cross-validation using different partitions and then average the results over all the rounds.
 
 For time-based datasets, where we have data collected over multiple days, it's reasonable to split the data so that we train on the majority of the dataset, and then use for instance the last day out of 30, as our Test/Validate set. This ensures the test on the most recent data, but it is important to remember time-based splits like this work best with **very, very large datasets**.
 
@@ -640,6 +600,59 @@ d. Dropout
 
 ## Errata
 
+## Standard Notation
+
+As a primer for people like myself who are not as mathematically inclined I present some standard mathematical notation we can be prepared to encounter during our exploration of this topic. It is neither exhaustive or all encompassing, but should help to make the statistics, linear algebra, probability and calculus less opaque.
+
+* **Features** are the input variables describing our data
+  * Typically represented by the variables {$x_{1}x_{2}x_{...}x_{n}$}
+  * $x$ = "input" variable feature
+* **label** is the output variable we're predicting
+  * Typically represented by the variable $y$
+  * $y$ = "output" target feature
+* $m$ = number of training examples
+* **Example** is one piece or instance of data
+  * a **Labeled Example** has {features, label}: (x,y)
+  * These labeled examples are used to train our model.
+  * $(x,y)$ = single training example
+  * $(x^{(i)},y^{(i)})$ = the $i^{th}$ training example
+* an **Unlabeled Example** has {features, ?}: (x,?)
+  * Used for making predictions on new data (inference)
+* **Model** maps examples to predicted labels
+  * Defined by internal parameters, which are learned
+  * $w, b$ = parameters, weights or coefficients
+  * y-hat or $ŷ$ or $y'$ = prediction or estimate
+* **Training** means creating or learning the model. 
+  * a model gradually learns the relationships between features and labels
+* **Inference** means applying the trained model to unlabeled examples
+* **Sum** of common terms
+  * Uppercase letter Sigma $\Sigma$, used to denote a sum of multiple terms
+* **Standard Deviation**
+  * The lowercase letter sigma $\sigma$ is used to represent [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation)
+  * a measure of the amount of variation or dispersion of a set of values
+* **Partial Derivative**
+  * Cursive $\partial$ usually to denote a [partial derivative](https://en.wikipedia.org/wiki/Partial_derivative)
+  * a derivative is the rate of change of a function with respect to a variable
+  * a partial derivative is the derivative of a function of several variables with respect to change in just one of its variables
+* **Gradient**
+  * used in vector calculus
+  * expressed as an upside down triangle known as a Del or nabla $\nabla$
+  * The vector of partial derivatives with respect to all independent variables
+
+#### Additional Learning Material
+
+* StatQuest with Josh Starmer: Statistics Fundamentals - [Playlist](https://www.youtube.com/watch?v=qBigTkBLU6g&list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9)
+* MIT OpenCourseWare: Linear Algebra by Gilbert Strang - [Playlist](https://www.youtube.com/playlist?list=PLUl4u3cNGP61iQEFiWLE21EJCxwmWvvek)
+* FreeCodeCamp: Linear Algebra Full College Course by Dr. Jim Hefferon - [Playlist](https://www.youtube.com/watch?v=JnTa9XtvmfI)
+* Calculus with Professor Leonard - [Playlists](https://www.youtube.com/user/professorleonard57/playlists)
+* The Essence of Calculus by Grant Sanderson - [Playlist](https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr)
+
+#### Glossary
+
+* Glossary of [mathematical symbols](https://en.wikipedia.org/wiki/Glossary_of_mathematical_symbols)
+* List of mathematical symbols [by subject](https://en.wikipedia.org/wiki/List_of_mathematical_symbols_by_subject) 
+* List of mathematical [constants](https://en.wikipedia.org/wiki/List_of_mathematical_constants)
+
 ### Toolkits and Libraries
 
 #### TensorFlow
@@ -665,8 +678,3 @@ Along with TensorFlow, [NumPy](https://numpy.org/) is popularly used to simplify
 * Kaggle [datasets](https://www.kaggle.com/datasets)
 * Google [Dataset Search](https://datasetsearch.research.google.com/)
 
-### Mathematics References
-
-* Glossary of [mathematical symbols](https://en.wikipedia.org/wiki/Glossary_of_mathematical_symbols)
-* List of mathematical symbols [by subject](https://en.wikipedia.org/wiki/List_of_mathematical_symbols_by_subject) 
-* List of mathematical [constants](https://en.wikipedia.org/wiki/List_of_mathematical_constants)
