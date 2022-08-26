@@ -463,10 +463,11 @@ Some basic terminology used in Machine and Deep Learning.
   * Required by the model when making predictions
   * Not set manually, adjusted by forward and back propagation
   * Saved as part of the learned model
-  * Exampels: **Weights**, **Biases**
+  * Examples: **Weights**, **Biases**
 * What are **Hyperparameters**?
   * Configurations external to the neural network model
   * Value cannot be estimated directly from data
+  * Also called a model's tuning parameters
   * No easy wat to find the best value, takes trial and error
   * When a Deep Learning algorithm is tuned, we make changes to hyperparameters.
   * All manually specified parameters are hyperparameters
@@ -548,7 +549,7 @@ The splitting or **Partitioning** of our dataset relies on two factors, the tota
 
 **How large should our splits be?** This involves two ideas which are in tension, the larger our training set, the better our learning model will be, but the larger our test set is, the higher our confidence will be that we're making accurate predictions. Models with many hyperparameters are easier to validate because of an excess of testable data in the set, but if we have a small dataset we might possibly need to make use of [cross-validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)). There also exists edge cases where we might not need a validation set because the hyperparameters are difficult to tune. This train-test-validate ratio is dependant on your unique requirements, and you will develop an intuition for the appropriate splits as you build more models.
 
-**Cross-validation** allows us to compare different machine learning methods and get a sense for how well they will work in practice, we achieve this by taking our data set and splitting it into a Training and Testing set, we then set aside the Testing set and use a randomly chosen portion of the Training set for Validation purposes. We then use our Training set to produce multiple splits of the Training and Validation sets. The main advantage of cross-validation, is that it helps us avoid over-fitting. We use what is called K-Fold Cross-Validation to reduce variability in the data. To achieve this we can perform multiple rounds of cross-validation using different partitions and then average the results over all the rounds.
+**Cross-validation** allows us to compare different machine learning methods and get a sense for how well they will work in practice, we achieve this by taking our data set and splitting it into a Training and Testing set, we then set aside the Testing set and use a randomly chosen portion of the Training set for Validation purposes. We then use our Training set to produce multiple splits of the Training and Validation sets. The main advantage of cross-validation, is that it helps us avoid over-fitting. In practice we use what is called K-Fold Cross-Validation to reduce variability in the data. To achieve this we can perform multiple rounds of cross-validation using different partitions and then average the results over all the rounds.
 
 For time-based datasets, where we have data collected over multiple days, it's reasonable to split the data so that we train on the majority of the dataset, and then use for instance the last day out of 30, as our Test/Validate set. This ensures the test on the most recent data, but it is important to remember time-based splits like this work best with **very, very large datasets**.
 
