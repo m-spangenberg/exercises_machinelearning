@@ -37,8 +37,8 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
     - [**Implementing Gradient Descent**](#implementing-gradient-descent)
     - [**Stochastic Gradient Descent**](#stochastic-gradient-descent)
   - [Building a Deep Learning Model](#building-a-deep-learning-model)
-    - [Data Gathering](#data-gathering)
-    - [Data Preprocessing](#data-preprocessing)
+    - [**Data Gathering**](#data-gathering)
+    - [**Data Preprocessing**](#data-preprocessing)
     - [Model Training](#model-training)
   - [Errata](#errata)
     - [Toolkits and Libraries](#toolkits-and-libraries)
@@ -549,11 +549,11 @@ It is safe to say enormous batches tend not to carry much more predictive value 
 4. Evaluate Model
 5. Optimize Model
 
-### Data Gathering
+### **Data Gathering**
 
 The choice of data depends on the type of problem we're trying to solve, and bad data implies a bad model. It is very important that we make assumptions about our data and then test to see if these assumptions are grounded in truth. We must not only aim to have a dataset of adequate size, but also of a high enough quality so our model has the best chance possible to succeed. A good rule of thumb when it comes to dataset size, is that we should ideally have 10x more data than we have model parameters. For Regression problems, 10 examples per predictor variable would be a good place to start from, and for something more complex, like Image Classification: 1000 images per class is reasonable. Besides dataset size, we must ask ourselves some questions about the quality of our data, how common are labelling errors? How noisy are our features? Poor quality will impact reliability.
 
-### Data Preprocessing
+### **Data Preprocessing**
 
 There are some tried and tested methods to get the most out of our datasets, chiefly the splitting of datasets into subsets. We can then use these subsets for specific steps in our training, evaluation, and optimization loop. The reason we rely on subsets is because the process of developing a model requires tuning of the models hyperparameters, and this tuning is done with feedback from the validation set. We want our training, testing, and validation sets to be very similar to each other to eliminate skewing as much as possible.
 
@@ -566,9 +566,17 @@ The splitting of our dataset relies on two factors, the total number of samples 
 
 **Cross-validation** is when we take our data set and split it into a Training and Testing set, we then set aside the Testing set and use a randomly chosen portion of the Training set for Validation purposes. We then use our Training set to produce multiple splits of the Training and Validation sets. The main advantage of cross-validation, is that it helps us avoid over-fitting. We use what is called K-Fold Cross-Validation to reduce variability in the data. To achieve this we can perform multiple rounds of cross-validation using different partitions and then average the results over all the rounds.
 
-For time-based datasets, where we have data collected over multiple days, it's reasonable to split the data so that we train on the majority of the dataset, and then use for instance the last day out of 30, as our Test/Validate set. This ensures the test on the most recent data, but it is important to remember time-based splits like this work best with very, very large datasets.
+For time-based datasets, where we have data collected over multiple days, it's reasonable to split the data so that we train on the majority of the dataset, and then use for instance the last day out of 30, as our Test/Validate set. This ensures the test on the most recent data, but it is important to remember time-based splits like this work best with **very, very large datasets**.
 
-Formatting is another important factor to consider when doing preprocessing.
+**Formatting** is another important factor to consider when doing preprocessing. We might have data in a database, and need it as a CSV file, or have a JSON feed to parse and export to a key:value datastore. The requirements will always change, but the important aspect is that this data is rarely ever pristine, we will have missing data.
+
+Dealing with **Missing Data** will take up the largest portion of your time when doing preprocessing. These missing values are typically represented as 'NaN' or 'Null', or are just not there at all, most algorithms can't deal with these indicators, and it requires manual or semi-manual input from us. We can deal with these missing values by eliminating features, at the risk of removing relevant information or we can input missing values by computing averages.
+
+The other problem we might face is having too much data, resulting in using too many resources to perform simple tasks because we have redundant data-points, or where we must rely on **Sampling** in order to reduce the size of a very large dataset while being able to deliver a working model.
+
+**Imbalanced data** is present in almost all real-world datasets. This is when classification data that is skewed which results in majority and minority classes, our model will then be biased to the majority class. To [mitigate these imbalances](https://developers.google.com/machine-learning/data-prep/construct/sampling-splitting/imbalanced-data) we can employ `down-sampling` and `up-weighting`, where we reduce the majority by some factor, which leads to faster convergence and reduced resource use. It is crucial though that the model must remain calibrated, we add up-weighting after down-sampling to keep the dataset in similar ratio.
+
+This leads us to **Feature Scaling**, which relies on [data transformation](https://developers.google.com/machine-learning/data-prep/transform/introduction) techniques to bring [features into similar scale](https://en.wikipedia.org/wiki/Feature_scaling). One of these techniques is **Normalization**, where we rescale features to a range between 0 and 1 by applying [min-max scaling](https://en.wikipedia.org/wiki/Normalization_(statistics)) to each feature column and the other is **Standardization**, which is when we center the field at mean-zero with standard deviation of 1, we do this to prevent features with wider ranges from dominating the distance metric.
 
 ### Model Training
 
