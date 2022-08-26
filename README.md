@@ -39,7 +39,8 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
   - [Building a Deep Learning Model](#building-a-deep-learning-model)
     - [**Data Gathering**](#data-gathering)
     - [**Data Preprocessing**](#data-preprocessing)
-    - [Model Training](#model-training)
+    - [**Model Training & Evaluation**](#model-training--evaluation)
+    - [**Model Optimization**](#model-optimization)
   - [Errata](#errata)
     - [Toolkits and Libraries](#toolkits-and-libraries)
       - [TensorFlow](#tensorflow)
@@ -479,7 +480,7 @@ Some basic terminology used in Machine and Deep Learning.
   * Estimated directly from the data
   * Responsible for defining the skill of our model
   * Required by the model when making predictions
-  * Not set manually
+  * Not set manually, adjusted by forward and back propagation
   * Saved as part of the learned model
   * Exampels: **Weights**, **Biases**
 * What are **Hyperparameters**?
@@ -578,7 +579,41 @@ The other problem we might face is having too much data, resulting in using too 
 
 This leads us to **Feature Scaling**, which relies on [data transformation](https://developers.google.com/machine-learning/data-prep/transform/introduction) techniques to bring [features into similar scale](https://en.wikipedia.org/wiki/Feature_scaling). One of these techniques is **Normalization**, where we rescale features to a range between 0 and 1 by applying [min-max scaling](https://en.wikipedia.org/wiki/Normalization_(statistics)) to each feature column and the other is **Standardization**, which is when we center the field at mean-zero with standard deviation of 1, we do this to prevent features with wider ranges from dominating the distance metric.
 
-### Model Training
+### **Model Training & Evaluation**
+
+1. Feed the data to our model
+2. Forward propagation occurs
+3. Loss is compared against Loss Function
+4. Parameters are adjusted based on back propagation
+5. Test model against validation set
+
+### **Model Optimization**
+
+a. Hyperparameter Tuning
+   * Show the model the entire dataset multiple times (Increased number of epochs)
+   * Change how quickly we descend to the lowest global minimum (Adjust the learning rate)
+   * Better define the initial conditions in order to reach our desired outcome more quickly
+
+b. Address Overfitting
+   * Get more data
+     * usually the easier solution
+     * helps with reaching generalization
+   * Reduce the models size
+     * reduce the number of learnable parameters
+     * might lead to underfitting
+   * Weight Regularization
+     * Constrain network complexity by forcing weights to take only small values
+     * Add Cost to the Loss Function associated with larger weights
+       * L1 Regularization adds cost to the absolute value of the weight coefficient (L1 Norm)
+       * L2 Regularization adds cost to the square value of the weights coefficient (L2 Norm)
+
+c. Data Augmentation
+   * Good way of increasing dataset points from existing data artificially
+   * Flipping, Blurring, Zooming exposes the model to more variation, making it less fragile
+
+d. Dropout
+   * Randomly drop some neurons at each forward or backward iteration or pass
+   * Neurons develop a co-dependency on each other during training which results in over-fitting
 
 ## Errata
 
