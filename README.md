@@ -43,6 +43,7 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
   - [Errata](#errata)
     - [Toolkits and Libraries](#toolkits-and-libraries)
       - [TensorFlow](#tensorflow)
+    - [Dataset Aggregators](#dataset-aggregators)
     - [Mathematics References](#mathematics-references)
 
 ## Standard Notation
@@ -550,7 +551,24 @@ It is safe to say enormous batches tend not to carry much more predictive value 
 
 ### Data Gathering
 
+The choice of data depends on the type of problem we're trying to solve, and bad data implies a bad model. It is very important that we make assumptions about our data and then test to see if these assumptions are grounded in truth. We must not only aim to have a dataset of adequate size, but also of a high enough quality so our model has the best chance possible to succeed. A good rule of thumb when it comes to dataset size, is that we should ideally have 10x more data than we have model parameters. For Regression problems, 10 examples per predictor variable would be a good place to start from, and for something more complex, like Image Classification: 1000 images per class is reasonable. Besides dataset size, we must ask ourselves some questions about the quality of our data, how common are labelling errors? How noisy are our features? Poor quality will impact reliability.
+
 ### Data Preprocessing
+
+There are some tried and tested methods to get the most out of our datasets, chiefly the splitting of datasets into subsets. We can then use these subsets for specific steps in our training, evaluation, and optimization loop. The reason we rely on subsets is because the process of developing a model requires tuning of the models hyperparameters, and this tuning is done with feedback from the validation set. We want our training, testing, and validation sets to be very similar to each other to eliminate skewing as much as possible.
+
+* Splitting dataset into `subsets`
+  * Train on training set
+  * Test on testing set
+  * Evaluate on validation set
+
+The splitting of our dataset relies on two factors, the total number of samples in our data and the types of models we are attempting to produce.Models with few hyperparameters are easier to validate, we can reduce size of validation set. Models with many hyperparameters will require larger validation sets, and possibly [cross-validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)). There also exists edge cases where we might not need a validation set because the hyperparameters are difficult to tune. This train-test-validate ratio is dependant on your unique requirements and you will develop an intuition for the appropriate splits as you build more models.
+
+**Cross-validation** is when we take our data set and split it into a Training and Testing set, we then set aside the Testing set and use a randomly chosen portion of the Training set for Validation purposes. We then use our Training set to produce multiple splits of the Training and Validation sets. The main advantage of cross-validation, is that it helps us avoid over-fitting. We use what is called K-Fold Cross-Validation to reduce variability in the data. To achieve this we can perform multiple rounds of cross-validation using different partitions and then average the results over all the rounds.
+
+For time-based datasets, where we have data collected over multiple days, it's reasonable to split the data so that we train on the majority of the dataset, and then use for instance the last day out of 30, as our Test/Validate set. This ensures the test on the most recent data, but it is important to remember time-based splits like this work best with very, very large datasets.
+
+Formatting is another important factor to consider when doing preprocessing.
 
 ### Model Training
 
@@ -574,6 +592,12 @@ TensorFlow toolkit hierarchy
 * CPU, GPU, TPU <-- TensorFlow code runs on these platforms
 
 Along with TensorFlow, [NumPy](https://numpy.org/) is popularly used to simplify representing arrays and performing linear algebra operations along with [pandas](https://pandas.pydata.org/), which provides an easy way to represent datasets in memory.
+
+### Dataset Aggregators
+
+* UCI [Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php)
+* Kaggle [datasets](https://www.kaggle.com/datasets)
+* Google [Dataset Search](https://datasetsearch.research.google.com/)
 
 ### Mathematics References
 
