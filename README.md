@@ -1,9 +1,10 @@
 # Machine Learning
 
-Below are my notes on machine learning theory from [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [Practical Deep Learning for Coders](https://course.fast.ai/).
+Below are my notes on machine learning theory from [MIT OpenCourseware](https://www.youtube.com/watch?v=h0e2HAPTGF4), [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [Practical Deep Learning for Coders](https://course.fast.ai/).
 
 - [Machine Learning](#machine-learning)
   - [Standard Notation](#standard-notation)
+  - [What is Machine Learning?](#what-is-machine-learning)
   - [Supervised Learning](#supervised-learning)
     - [**Classification**](#classification)
     - [**Regression**](#regression)
@@ -24,7 +25,7 @@ Below are my notes on machine learning theory from [Coursera](https://www.course
   - [Deep Learning](#deep-learning)
     - [**Motivation**](#motivation)
     - [**Neural Networks**](#neural-networks)
-    - [**Forward Propagation (FNN)**](#forward-propagation-fnn)
+    - [**Forward Propagation (FP)**](#forward-propagation-fp)
     - [**Back Propagation (BP)**](#back-propagation-bp)
     - [**Learning Algorithm**](#learning-algorithm)
   - [Neural Network Terminology](#neural-network-terminology)
@@ -85,6 +86,26 @@ See more [machine learning glossary](https://developers.google.com/machine-learn
   * used in vector calculus
   * expressed as an upside down triangle known as a Del or nabla $\nabla$
   * The vector of partial derivatives with respect to all independent variables
+
+## What is Machine Learning?
+
+In the late 50's, [Art Samuel](https://en.wikipedia.org/wiki/Arthur_Samuel) said Machine Learning was a "Field of study that gives computers the ability to learn without being explicitly programmed". We first have to ask ourselves, how are things learned? A human being has the ability to learn in two ways:
+
+* **Memorization**
+  * What we call **Declarative Knowledge**
+  * Accumulation of individual facts
+  * Limited by
+    * Time to observe facts
+    * Memory to store facts
+* **Generalization**
+  * What we call **Imperative Knowledge**
+  * Deduce new facts from old facts
+  * Limited by accuracy of deduction process
+    * Essentially a predictive activity
+    * Assumes that the past predict the future
+
+Our interest is in extending generalization to the learning algorithm, so that it has the ability to make useful inferences about the world around it from the implicit patterns in its input data.
+
 
 ## Supervised Learning
 
@@ -264,7 +285,7 @@ A core problem in Deep Learning is to create a model that performs well on train
 
 ## Neural Network Architectures
 
-### **Fully-Connected Feedforward Neural Networks (FNN)**
+### **Fully-Connected Feedforward Neural Networks ([FNN](https://en.wikipedia.org/wiki/Feedforward_neural_network))**
 
 By fully connected, we mean each neuron is connected to every neuron in the subsequent layer with no backwards connections. As we've found, each neuron contains an activation function that changes the output of neuron when given an input, and each type of non-linear activation function (sigmoid, tanh, and rectified linear unit) has their own pros and cons. We use them at various layers based on the problem they're each meant to solve. With these fundamentals we are capable of building a wide variety of fully-connected feed forward networks.
 
@@ -316,7 +337,7 @@ To remedy the VGP problem, we can employ two variants of Recurring Neural Networ
 
 Both these variants are capable of learning long-term dependencies using mechanisms called `gates`. These gates are [tensor](https://en.wikipedia.org/wiki/Tensor) operations that can learn what to add or remove from the hidden state of the feedback loop.
 
-### **Convolutional Neural Networks (CNN)**
+### **Convolutional Neural Networks ([CNN](https://en.wikipedia.org/wiki/Convolutional_neural_network))**
 
 * **Applications of CNNs**
   * Computer Vision
@@ -356,7 +377,7 @@ What is a Neural Network? Neural Networks are constructed from neurons, like neu
 
 ![Multi Layer Neural Network](https://upload.wikimedia.org/wikipedia/commons/c/c2/MultiLayerNeuralNetworkBigger_english.png "Multi Layer Neural Network - https://commons.wikimedia.org/wiki/File:MultiLayerNeuralNetworkBigger_english.png")
 
-### **Forward Propagation ([FNN](https://en.wikipedia.org/wiki/Feedforward_neural_network))**
+### **Forward Propagation (FP)**
 
 $$ŷ =  \sigma \sum_{i=1}^{n}x_{i}w_{i}+b_{i}$$
 
@@ -563,7 +584,9 @@ There are some tried and tested methods to get the most out of our datasets, chi
   * Test on testing set
   * Evaluate on validation set
 
-The splitting of our dataset relies on two factors, the total number of samples in our data and the types of models we are attempting to produce.Models with few hyperparameters are easier to validate, we can reduce size of validation set. Models with many hyperparameters will require larger validation sets, and possibly [cross-validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)). There also exists edge cases where we might not need a validation set because the hyperparameters are difficult to tune. This train-test-validate ratio is dependant on your unique requirements and you will develop an intuition for the appropriate splits as you build more models.
+The splitting or **Partitioning** of our dataset relies on two factors, the total number of samples in our data, and the types of models we are attempting to produce. We have to be careful to **randomize our data** before making this split, or else we might run into a scenario where we've accidentally split say; all passing test scores into the training set, and all failed scores into the test set. The gotcha here is we **DO NOT EVER** want to train on test data, because we will get unrealistically strong opinions about how good our model is. If we have 100% accuracy, or surprisingly low loss, the chances are good a mistake has been made, or data has leaked into our training data.
+
+**How large should our splits be?** This involves two ideas which are in tension, the larger our training set, the better our learning model will be, but the larger our test set is, the higher our confidence will be that we're making accurate predictions. Models with many hyperparameters are easier to validate because of an excess of testable data in the set, but if we have a small dataset we might possibly need to make use of [cross-validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)). There also exists edge cases where we might not need a validation set because the hyperparameters are difficult to tune. This train-test-validate ratio is dependant on your unique requirements, and you will develop an intuition for the appropriate splits as you build more models.
 
 **Cross-validation** is when we take our data set and split it into a Training and Testing set, we then set aside the Testing set and use a randomly chosen portion of the Training set for Validation purposes. We then use our Training set to produce multiple splits of the Training and Validation sets. The main advantage of cross-validation, is that it helps us avoid over-fitting. We use what is called K-Fold Cross-Validation to reduce variability in the data. To achieve this we can perform multiple rounds of cross-validation using different partitions and then average the results over all the rounds.
 
