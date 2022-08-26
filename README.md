@@ -104,7 +104,7 @@ In the late 50's, [Art Samuel](https://en.wikipedia.org/wiki/Arthur_Samuel) said
     * Essentially a predictive activity
     * Assumes that the past predict the future
 
-Our interest is in extending generalization to the learning algorithm, so that it has the ability to make useful inferences about the world around it from the implicit patterns in its input data.
+Our interest is in extending generalization to the learning algorithm, so that it has the ability to make useful inferences about the world around it from the implicit patterns in its input data. The basic paradigm then is that we have data, which we feed to an algorithm, which produces a model, a sort of kernel of truth that is its understanding of a dataset, which can then be used to infer useful information from new data. This basic paradigm has two variations, the supervised and the unsupervised learning algorithm.
 
 
 ## Supervised Learning
