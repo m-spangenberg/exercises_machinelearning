@@ -1,6 +1,6 @@
 # Machine Learning
 
-Below are my notes on machine learning theory from [MIT OpenCourseware](https://www.youtube.com/watch?v=h0e2HAPTGF4), [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [Practical Deep Learning for Coders](https://course.fast.ai/).
+Below are my notes on machine learning theory from [MIT OpenCourseware](https://www.youtube.com/watch?v=h0e2HAPTGF4), [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [fast.ai](https://course.fast.ai/).
 
 - [Machine Learning](#machine-learning)
   - [What is Machine Learning?](#what-is-machine-learning)
@@ -12,8 +12,8 @@ Below are my notes on machine learning theory from [MIT OpenCourseware](https://
     - [**Cost Function Intuition**](#cost-function-intuition)
     - [**Generalization**](#generalization)
   - [Unsupervised Learning](#unsupervised-learning)
-    - [Clustering](#clustering)
-    - [Association](#association)
+    - [**Clustering**](#clustering)
+    - [**Association**](#association)
   - [Reinforcement Learning](#reinforcement-learning)
   - [Regularization](#regularization)
     - [**How to Approach Overfitting?**](#how-to-approach-overfitting)
@@ -41,13 +41,14 @@ Below are my notes on machine learning theory from [MIT OpenCourseware](https://
     - [**Data Preprocessing**](#data-preprocessing)
     - [**Model Training & Evaluation**](#model-training--evaluation)
     - [**Model Optimization**](#model-optimization)
-  - [Errata](#errata)
-  - [Standard Notation](#standard-notation)
-      - [Additional Learning Material](#additional-learning-material)
-      - [Glossary](#glossary)
-    - [Toolkits and Libraries](#toolkits-and-libraries)
-      - [TensorFlow](#tensorflow)
-    - [Dataset Aggregators](#dataset-aggregators)
+  - [Additional Information](#additional-information)
+    - [**Standard Notation**](#standard-notation)
+    - [**Additional Learning Material**](#additional-learning-material)
+    - [**Glossary**](#glossary)
+    - [**Toolkits and Libraries**](#toolkits-and-libraries)
+      - [**PyTorch**](#pytorch)
+      - [**TensorFlow**](#tensorflow)
+    - [**Dataset Aggregators**](#dataset-aggregators)
 
 ## What is Machine Learning?
 
@@ -190,7 +191,7 @@ Unsupervised Learning is a branch of Machine Learning that is used to manifest u
   * Amazon, learns purchases and recommends new purchases through association rule mining/learning
   * Credit Card Fraud Detection, learns to detect fraud based on complex rule sets
 
-### Clustering
+### **Clustering**
 
 Clustering is the process of grouping data into different clusters or groups. The goal of this clustering is to predict continuous values such as test scores or patterns in genetic data. Good clustering will contain data-points which are as similar to each other as possible. 
 
@@ -201,7 +202,7 @@ Within clustering there exists Partitional Clustering and Hierarchical Clusterin
   * Expectation Maximization
   * Hierarchical CLuster Analysis (HCA)
 
-### Association
+### **Association**
 
 Association attempts to find relationships between different entities, for example when looking at the purchases of shoppers, we might be able to infer what else they will purchase based on common purchasing decisions made by many other shoppers. This is called [association rule learning](https://en.wikipedia.org/wiki/Association_rule_learning).
 
@@ -599,9 +600,9 @@ d. Dropout
    * Randomly drop some neurons at each forward or backward iteration or pass
    * Neurons develop a co-dependency on each other during training which results in over-fitting
 
-## Errata
+## Additional Information
 
-## Standard Notation
+### **Standard Notation**
 
 As a primer for people like myself who are not as mathematically inclined I present some standard mathematical notation we can be prepared to encounter during our exploration of this topic. It is neither exhaustive or all encompassing, but should help to make the statistics, linear algebra, probability and calculus less opaque.
 
@@ -640,7 +641,7 @@ As a primer for people like myself who are not as mathematically inclined I pres
   * expressed as an upside down triangle known as a Del or nabla $\nabla$
   * The vector of partial derivatives with respect to all independent variables
 
-#### Additional Learning Material
+### **Additional Learning Material**
 
 * StatQuest with Josh Starmer: Statistics Fundamentals - [Playlist](https://www.youtube.com/watch?v=qBigTkBLU6g&list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9)
 * MIT OpenCourseWare: Linear Algebra by Gilbert Strang - [Playlist](https://www.youtube.com/playlist?list=PLUl4u3cNGP61iQEFiWLE21EJCxwmWvvek)
@@ -648,15 +649,32 @@ As a primer for people like myself who are not as mathematically inclined I pres
 * Calculus with Professor Leonard - [Playlists](https://www.youtube.com/user/professorleonard57/playlists)
 * The Essence of Calculus by Grant Sanderson - [Playlist](https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr)
 
-#### Glossary
+### **Glossary**
 
 * Glossary of [mathematical symbols](https://en.wikipedia.org/wiki/Glossary_of_mathematical_symbols)
 * List of mathematical symbols [by subject](https://en.wikipedia.org/wiki/List_of_mathematical_symbols_by_subject) 
 * List of mathematical [constants](https://en.wikipedia.org/wiki/List_of_mathematical_constants)
 
-### Toolkits and Libraries
+### **Toolkits and Libraries**
 
-#### TensorFlow
+#### **PyTorch**
+
+What is PyTorch?
+
+PyTorch [documentation](https://pytorch.org/)
+
+Is a popular machine learning toolkit that allows us to write fast deep learning code in Python, capable of running on one or many GPUs. It comes bundled with many prebuilt deep learning models, and is capable of handling the entire data ingest stack: preprocessing our data, modeling our data, deploying our model in an application or on cloud infrastructure. It was originally designed and used by Facebook/Meta, but has since been open-sourced and is used by Tesla, OpenAI and Microsoft.
+
+To get started with PyTorch locally using Pipenv
+
+* Make sure you've got pipenv installed with `pip3 install pipenv`
+* Check your version of CUDA using `nvidia-smi`
+* Then head to PyTorch's [Start Locally](https://pytorch.org/get-started/locally/) guide, just swap out `pip3` for `pipenv`.
+* Install `ipykernel` and `pip`
+* Set Jupyter Notebook's kernel with `CTRL+SHIFT+P: Python: Select Interpreter` to the path of your Pipenv environment
+* Once you've installed PyTorch, add some useful data science tools: `pipenv install pandas numpy matplotlib` 
+
+#### **TensorFlow**
 
 What is TensorFlow?
 
@@ -673,9 +691,9 @@ TensorFlow toolkit hierarchy
 
 Along with TensorFlow, [NumPy](https://numpy.org/) is popularly used to simplify representing arrays and performing linear algebra operations along with [pandas](https://pandas.pydata.org/), which provides an easy way to represent datasets in memory.
 
-### Dataset Aggregators
+### **Dataset Aggregators**
 
 * UCI [Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php)
 * Kaggle [datasets](https://www.kaggle.com/datasets)
 * Google [Dataset Search](https://datasetsearch.research.google.com/)
-
+* Paperswithcode [Datasets](https://paperswithcode.com/datasets)
