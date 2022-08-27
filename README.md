@@ -670,9 +670,9 @@ To get started with PyTorch locally using Pipenv
 * Make sure you've got pipenv installed with `pip3 install pipenv`
 * Check your version of CUDA using `nvidia-smi`
 * Then head to PyTorch's [Start Locally](https://pytorch.org/get-started/locally/) guide, just swap out `pip3` for `pipenv`.
-* Install `ipykernel` and `pip`
-* Set Jupyter Notebook's kernel with `CTRL+SHIFT+P: Python: Select Interpreter` to the path of your Pipenv environment
-* Once you've installed PyTorch, add some useful data science tools: `pipenv install pandas numpy matplotlib` 
+* Install Jupyter inside the venv, `pipenv install jupyter ipython ipykernel pip`
+* Once you've installed PyTorch, add some useful data science tools to the venv: `pipenv install pandas numpy matplotlib` 
+* If you prefer to work in the browser, or run into VSCode flatpak issues: `pipenv run jupyter notebook`
 
 #### **TensorFlow**
 
