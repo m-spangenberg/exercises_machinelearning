@@ -131,7 +131,11 @@ Regression is a predictive, statistical process, where the model tries to find t
 
 ### **Linear Regression Model**
 
-Often called **Univariate Linear Regression**, or Linear Regression with one variable, for instance: The price of houses given their size. Our training set is fed features $x$ and targets $y$ and our supervised algorithm will produce some function (a hypothesis, which is our model). The job of this function is to take a new feature (input variable) and produce an estimate, also called y-hat, which is a predicted value of $y$ in a regression equation.
+There exists many forms of Linear Regression, let's take a look at the most basic type first.
+
+* **Univariate Linear Regression**, where we have one feature (variable), for instance the price of a house given the size of the house.
+
+Our training set is fed features $x$ and targets $y$ and our supervised algorithm will produce some function (a hypothesis, which is our model). The job of this function is to take a new feature (input variable) and produce an estimate, also called y-hat, which is a predicted value of $y$ in a regression equation.
 
 $$f_{wb}(x) = wx+b$$
 
@@ -144,6 +148,37 @@ $$ŷ^{(i)} = f_{w,b}(x^{(i)}) = wx^{(i)}+b$$
 The formula above shows our predicted value, $ŷ$ (y-hat) for the $i^{th}$ training sample
 
 Note: Models with single features are represented by [line of best fit](https://en.wikipedia.org/wiki/Simple_linear_regression), with two features, a plane and for more than two features, a [hyperplane](https://en.wikipedia.org/wiki/Hyperplane) is used.
+
+Now let's take a look at a slightly more complicated for of Linear Regression.
+
+* **Multivariate Regression**, with multiple features, for instance: the price of a house given the size, number of rooms, number of floors, and age.
+
+The notation for this type of regression is similar to what we use for standard linear regression. $X_{j}$ to refer to features and $n$ to denote the total number of features. We also use $X^{(i)}$ to denote the vector of features that comprise the $i^{(th)}$ example in the dataset.
+
+|           | **Size in Square Meters** | **Number of Bedrooms** | **Number of Floors** | **Age of building** | **Price in Dollars** |
+|-----------|---------------------------|------------------------|----------------------|---------------------|----------------------|
+|           | $X_{1}$ \| 2140           | $X_{2}$ \| 5           | $X_{3}$ \| 1         | $X_{4}$ \| 45       | $X_{5}$ \| 460000   |
+| $i^{(2)}$ | 1416                      | 3                      | 2                    | 40                  |                      |
+
+For this example $X^{(2)}$ is a row-vector that equals = [1416, 3, 2, 40] and if we want to refer to a specific variable value, we can use $X^{(1)}_{4}$, which equals 45.
+
+To try and get a sense of how we might model the above example as a multi-variate equation, compared to simple Linear Regression, first observe the Linear Regression formula:
+
+$$F_{w,b}(X)=wx+b$$
+
+And then expand on this to make it compatible with multiple features:
+
+$$F_{w,b}(X)=w_{1}x_{1}+w_{2}x_{2}+w_{3}x_{3}+w_{4}x_{4}+b$$
+
+Now swap out some of those placeholder with more meaningful data, like so:
+
+$$F_{w,b}(X)=(1.1*size)+(4*bedrooms)+(10*floors)+(-2*years)+80000$$
+
+The numbers we've plugged into our equation are weights, for instance at $b$ we use the value 80 to denote the base price for a standard house, perhaps 80,000 is the absolute minimum needed to build a house that's up to municipal or state code in your area. The idea to drive home here, is that our model's features are modified by its weights and biases.
+
+When we have an indeterminate amount of weights and features, a more concise way to write our formula would be to represent collections of similar elements, such as our weights, as a row-vectors. For this formula we can then write $w$ with a little arrow on top. We can do the same for $X$ and then add a dot $\cdot$, which represents the dot-product of the vectors, $\vec{w}$ and $\vec{X}$. The dot-product is simply the sum of all the elements in a vector multiplied by the elements in the corresponding vector, like so: $w_{1}X_{1}+w_{2}X_{2}+w_{...}X_{...}+w_{n}X_{n}$
+
+$$F_{\vec{w},b}(\vec{X})=\vec{w}\cdot\vec{X}+b$$
 
 ### **Cost Function Formula**
 
@@ -687,7 +722,7 @@ To get started with PyTorch locally using Pipenv
 * Check your version of CUDA using `nvidia-smi`
 * Then head to PyTorch's [Start Locally](https://pytorch.org/get-started/locally/) guide, just swap out `pip3` for `pipenv`.
 * Install Jupyter inside the venv, `pipenv install jupyter ipython ipykernel pip`
-* Once you've installed PyTorch, add some useful data science tools to the venv: `pipenv install pandas numpy matplotlib` 
+* Once you've installed PyTorch, add some useful data science tools to the venv: `pipenv install pandas numpy matplotlib scikit-learn`
 * If you prefer to work in the browser, or run into VSCode flatpak issues: `pipenv run jupyter notebook`
 
 See `exercises_pytorch` for more study notes on pytorch fundamentals, tensors, and workflow examples.
@@ -698,14 +733,7 @@ What is TensorFlow?
 
 TensorFlow [documentation](https://tensorflow.org/) for more details.
 
-TensorFlow APIs are arranged hierarchically, with the high-level APIs built on the low-level APIs. Machine learning researchers use the low-level APIs to create and explore new machine learning algorithms.
-
-TensorFlow toolkit hierarchy
-
-* Estimators and tf.keras <-- high-level, object-oriented API
-* tf.layers, tf.losses, tf.metrics, ... <-- reusable libraries for common model communication
-* low-level API <-- extensive control
-* CPU, GPU, TPU <-- TensorFlow code runs on these platforms
+In TensorFlow APIs are arranged hierarchically, with the high-level APIs built on the low-level APIs. Machine Learning Researchers use the low-level APIs to create and explore new machine learning algorithms and the high-lvel API's help streamline workflows for Machine Learning Engineers to help them get jobs done more quickly.
 
 Along with TensorFlow, [NumPy](https://numpy.org/) is popularly used to simplify representing arrays and performing linear algebra operations along with [pandas](https://pandas.pydata.org/), which provides an easy way to represent datasets in memory.
 
