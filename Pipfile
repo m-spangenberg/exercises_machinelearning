@@ -14,6 +14,7 @@ matplotlib = "*"
 pip = "*"
 ipython = "*"
 jupyter = "*"
+scikit-learn = "*"
 
 [dev-packages]
 
