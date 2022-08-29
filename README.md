@@ -77,7 +77,7 @@ Our interest is in extending generalization to the learning algorithm, so that i
   * Spam Detection
   * Speech Recognition
 
-Our journey begins with Supervised Learning, the most popular sub-branches of Machine Learning. Algorithms here, are designed to learn by example and the models it produces are trained on well-labeled data. We, the supervisors, are teaching systems to create models that combine labeled inputs called examples to produce useful predictions on data, often previously unseen data.
+Our journey begins with Supervised Learning, the most popular sub-branches of Machine Learning. Algorithms here, are designed to learn by example and the models it produces are trained on well-labeled data. We, the supervisors, teach systems to create models that combine labeled inputs called examples to produce useful predictions on data, often previously unseen data.
 
 Each example is a pair consisting of:
 
@@ -104,6 +104,22 @@ A classification algorithm will take input data and assign it classes or categor
   * K-Nearest Neighbour
   * Random Forest
 
+The typical architecture of a classification model looks as follows. You see, for Classification problems, there exists **Binary** and **Multi-class** methods, in both cases the algorithms we employ will learn boundaries to separate our examples from other classes. 
+
+We use Binary algorithms ([SVM](https://www.youtube.com/watch?v=efR1C6CvhmE), [logistic](https://www.youtube.com/watch?v=yIYKR4sgzI8) (without softmax), [Perceptron](https://www.youtube.com/watch?v=R2AXVUwBh7A)), for when we have classification problems where our examples must be assigned *exactly* one of two classes (for example we have a class a for honey bees, and everything else which is not a honey bee)
+
+We use Multi-class algorithms ([NB](https://www.youtube.com/watch?v=O2L2Uv9pdDA), [kNN](https://www.youtube.com/watch?v=HVXime0nQeI), [DT](https://www.youtube.com/watch?v=_L39rN6gz7Y), [logistic](https://www.youtube.com/watch?v=yIYKR4sgzI8)) for when our example is assigned exactly one of more than two classes which can be partitioned into mutually exclusive regions.
+
+| **Hyperparameter**                    | **Binary Classification**                   | **Multi-class Classification**  |
+|---------------------------------------|---------------------------------------------|---------------------------------|
+| **Input Layer Shape** (in_features)   | Same as number of features                  | _Same as binary classification_ |
+| **Hidden Layer(s)**                   | Problem specific, min = 1, max = unlimited  | _Same as binary classification_ |
+| **Neurons per Hidden Layer**          | Problem specific, generally 10 to 512       | _Same as binary classification_ |
+| **Output Layer Shape** (out_features) | 1 (one class or the other)                  | 1 per class                     |
+| **Hidden Layer Activation**           | **ReLU (rectified linear unit), etc**       | _Same as binary classification_ |
+| **Output Activation**                 | **Sigmoid**                                 | **Softmax**                     |
+| **Loss Function**                     | **Binary Crossentropy**                     | **Cross Entropy**               |
+| **Optimizer**                         | **Stochastic Gradient Descent, Adam, etc**  | _Same as binary classification_ |
 ### **Regression**
 
 Regression is a predictive, statistical process, where the model tries to find the important relationship between independent and dependant variables. For instance the goal of a regressive algorithm could be to predict continuous values like infections, sales, or test scores.
@@ -516,7 +532,7 @@ In gradient descent, a batch is the total number of examples you use to calculat
 
 It is safe to say enormous batches tend not to carry much more predictive value than large batches. What we ideally want it to get the right gradient on average for much less computation. To achieve this we can employ Stochastic Gradient Descent, the term "stochastic" means we are sampling one example comprising each batch at random. While SGD works, it can be quite noisy.
 
-**Mini-batch Stochastic Gradient Descent** is a compromise between full-batch iteration and SGD where we sample between 10 and a 1000 examples chosen at random. Even though gradient descent so far has been focused on single features for simplicity's sake, it also works on multivariate feature sets.
+**Mini-batch Stochastic Gradient Descent** is a compromise between full-batch iteration and SGD where we sample between 10 and a 1000 examples chosen at random. Even though gradient descent so far has been focused on single features for simplicity's sake, it also works on multivariate feature sets. **VERY IMPORTANT**: *Try not to use minibatches larger than 32*
 
 * Could compute gradient over entire data set on each step, but this turns out to be unnecessary
 * Computing gradient on small data samples works well
@@ -673,6 +689,8 @@ To get started with PyTorch locally using Pipenv
 * Install Jupyter inside the venv, `pipenv install jupyter ipython ipykernel pip`
 * Once you've installed PyTorch, add some useful data science tools to the venv: `pipenv install pandas numpy matplotlib` 
 * If you prefer to work in the browser, or run into VSCode flatpak issues: `pipenv run jupyter notebook`
+
+See `exercises_pytorch` for more study notes on pytorch fundamentals, tensors, and workflow examples.
 
 #### **TensorFlow**
 
