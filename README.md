@@ -1,6 +1,6 @@
 # Machine Learning
 
-Below are my notes on machine learning theory from [MIT OpenCourseware](https://www.youtube.com/watch?v=h0e2HAPTGF4), [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [fast.ai](https://course.fast.ai/).
+Below are my notes on machine learning and artificial intelligence from [Harvard CS50AI](https://learning.edx.org/course/course-v1:HarvardX+CS50AI+1T2020/home), [MIT OpenCourseware](https://www.youtube.com/watch?v=h0e2HAPTGF4), [Andrew Ng at Stanford](https://www.youtube.com/watch?v=jGwO_UgTS7I), [Coursera](https://www.coursera.org/specializations/machine-learning-introduction), [Google](https://developers.google.com/machine-learning/crash-course/), [SciKit-Learn](https://scikit-learn.org/), [Stanford CS231](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv), and [fast.ai](https://course.fast.ai/).
 
 - [Machine Learning](#machine-learning)
   - [What is Machine Learning?](#what-is-machine-learning)
@@ -8,8 +8,10 @@ Below are my notes on machine learning theory from [MIT OpenCourseware](https://
     - [**Classification**](#classification)
     - [**Regression**](#regression)
     - [**Linear Regression Model**](#linear-regression-model)
+    - [**Vectorization**](#vectorization)
     - [**Cost Function Formula**](#cost-function-formula)
     - [**Cost Function Intuition**](#cost-function-intuition)
+    - [**Cost Function Regularization**](#cost-function-regularization)
     - [**Generalization**](#generalization)
   - [Unsupervised Learning](#unsupervised-learning)
     - [**Clustering**](#clustering)
@@ -127,7 +129,7 @@ Regression is a predictive, statistical process, where the model tries to find t
 * **Popular Regression Algorithms**
   * Linear Regression
   * Lasso Regression
-  * Multivariate Regression
+  * Multivariable Regression
 
 ### **Linear Regression Model**
 
@@ -149,9 +151,9 @@ The formula above shows our predicted value, $ŷ$ (y-hat) for the $i^{th}$ train
 
 Note: Models with single features are represented by [line of best fit](https://en.wikipedia.org/wiki/Simple_linear_regression), with two features, a plane and for more than two features, a [hyperplane](https://en.wikipedia.org/wiki/Hyperplane) is used.
 
-Now let's take a look at a slightly more complicated for of Linear Regression.
+Now let's take a look at a slightly more complicated form of Linear Regression.
 
-* **Multivariate Regression**, with multiple features, for instance: the price of a house given the size, number of rooms, number of floors, and age.
+* **Multiple Linear Regression**, with multiple features, for instance: the price of a house given the size, number of rooms, number of floors, and age.
 
 The notation for this type of regression is similar to what we use for standard linear regression. $X_{j}$ to refer to features and $n$ to denote the total number of features. We also use $X^{(i)}$ to denote the vector of features that comprise the $i^{(th)}$ example in the dataset.
 
@@ -176,9 +178,39 @@ $$F_{w,b}(X)=(1.1*size)+(4*bedrooms)+(10*floors)+(-2*years)+80000$$
 
 The numbers we've plugged into our equation are weights, for instance at $b$ we use the value 80 to denote the base price for a standard house, perhaps 80,000 is the absolute minimum needed to build a house that's up to municipal or state code in your area. The idea to drive home here, is that our model's features are modified by its weights and biases.
 
-When we have an indeterminate amount of weights and features, a more concise way to write our formula would be to represent collections of similar elements, such as our weights, as a row-vectors. For this formula we can then write $w$ with a little arrow on top. We can do the same for $X$ and then add a dot $\cdot$, which represents the dot-product of the vectors, $\vec{w}$ and $\vec{X}$. The dot-product is simply the sum of all the elements in a vector multiplied by the elements in the corresponding vector, like so: $w_{1}X_{1}+w_{2}X_{2}+w_{...}X_{...}+w_{n}X_{n}$
+When we have an indeterminate amount of weights and features, a more concise way to write our formula would be to represent collections of similar elements, such as our weights, as a row-vectors. For this formula we can then write $w$ with a little arrow on top. We can do the same for $X$ and then add a dot $\cdot$ between them, this represents the dot-product of the vectors, $\vec{w}$ and $\vec{X}$. The dot-product is simply the sum of all the elements in a vector multiplied by the elements in the corresponding vector, like so: $w_{1}X_{1}+w_{2}X_{2}+w_{...}X_{...}+w_{n}X_{n}$
 
 $$F_{\vec{w},b}(\vec{X})=\vec{w}\cdot\vec{X}+b$$
+
+### **Vectorization**
+
+Without vectorization, trying to derive the dot product with sequential calculation from vectors would be incredibly tedious. So using it makes our code shorter, and it runs much faster!
+
+example: without vectorization, formula
+
+$$F_{\vec{w},b}(\vec{X})=(\sum^{n}_{j=1}w_{j}X_{j})+b$$
+
+example: python for-range loop, slow and inefficient
+```py
+f = 0
+for j in range(0, n):
+  f = f + w[j] * x[j]
+f = f + b
+```
+
+example: python and numpy, mathe-magical!
+```py
+f = np.dot(w,x) + b
+```
+
+The reason `NumPy` is able to be so much faster than a pure Python implementation, is because our pure implementation is serialized, so one-step-after-another, which is highly inefficient. NumPy performs the same task in a highly `parallel` manner and leverages specialized hardware that resides on the CPU/GPU to add the resulting sum of each individual derivative term together. This is all to illustrate how vectorized code is the preferred method for implementing machine learning algorithms that are efficient and scale well with larger datasets.
+
+example: implementing multiple linear regression in python with numpy
+```py
+w = np.array([0.5, 1.3, 1.6, ..., 2.0])
+d = np.array([0.2, 0.5, 0.7, ..., 1.7])
+w = w - 0.1 * d
+```
 
 ### **Cost Function Formula**
 
@@ -206,6 +238,10 @@ $$f_{w,b}(x) = wx+b$$
 $$J(w,b) = \frac{1}{2m} \sum_{i=1}^{m} (ŷ^{(i)} - y^{(i)})^2$$
 
 * goal: to try to minimize J as a function of w and b
+
+### **Cost Function Regularization**
+
+
 
 ### **Generalization**
 
@@ -280,6 +316,8 @@ Unlike unsupervised learning, the goal of reinforcement is to find a suitable mo
 ## Regularization
 
 A core problem in Deep Learning is to create a model that performs well on training data AND new test data. The most common problem faced in Deep Learning as it turns out, is `overfitting`. This is a situation where your model performs exceptionally well on training data, but not on new data because the model is blind to new variations. Conversely, we also have scenarios where `underfitting` can occur, which is when our model is unable to draw reasonable predictions because it under estimates the data.
+
+It turns out, with datasets, if you have a lot of features but not enough examples, your model will likely become overfit. Instead of using all features, it is better practice to select a few relevant features. This feature selection has a downside though, by limiting our selections to only some features, useful data might be lost.
 
 ### **How to Approach Overfitting?**
 
