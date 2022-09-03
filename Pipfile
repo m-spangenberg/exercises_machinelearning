@@ -15,6 +15,7 @@ pip = "*"
 ipython = "*"
 jupyter = "*"
 scikit-learn = "*"
+torchmetrics = "*"
 
 [dev-packages]
 
