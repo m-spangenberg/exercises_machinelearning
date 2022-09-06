@@ -23,7 +23,6 @@ Below are my notes on machine learning and artificial intelligence from [Harvard
     - [**Fully-Connected Feedforward Neural Networks (FNN)**](#fully-connected-feedforward-neural-networks-fnn)
     - [**Recurrent Neural Networks (RNN)**](#recurrent-neural-networks-rnn)
     - [**Convolutional Neural Networks (CNN)**](#convolutional-neural-networks-cnn)
-      - [Computer Vision Classification Problems](#computer-vision-classification-problems)
   - [Deep Learning](#deep-learning)
     - [**Motivation**](#motivation)
     - [**Neural Networks**](#neural-networks)
@@ -410,7 +409,7 @@ $$(f*g)(i)=\sum_{j=1}^{m}g(j)\cdot f(i-j+m/2)$$
 
 Pooling, also known as sub-sampling or down-sampling, is the next step. It's objective is to further reduce the numbers of neurons necessary in subsequent layers of the network, while still retaining relevant information. There exists two types of pooling: Max and Min pooling, where max pooling is used to pick the maximum value from the selected region and min the minimum.
 
-#### Computer Vision Classification Problems
+**Computer Vision Classification Problems**
 
 * Binary Classification <-- one type of data or another, banana _or_ apples
 * Object Detection <-- specific object in an image or sequence of images
