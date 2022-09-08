@@ -39,7 +39,6 @@ Below are my notes on machine learning and artificial intelligence from [Harvard
     - [**Implementing Gradient Descent**](#implementing-gradient-descent)
     - [**Stochastic Gradient Descent**](#stochastic-gradient-descent)
   - [Common Image Ingest Workflows](#common-image-ingest-workflows)
-  - [Deep Learning Model Deployment Workflows](#deep-learning-model-deployment-workflows)
   - [Building a Deep Learning Model](#building-a-deep-learning-model)
     - [**Data Gathering**](#data-gathering)
     - [**Data Preprocessing**](#data-preprocessing)
@@ -638,10 +637,6 @@ It is safe to say enormous batches tend not to carry much more predictive value 
   * Train the model to clean data -> helps us to catch problems in the data early
     * Use confusion-matrix to plot top losses
     * ImageClassifierCleaner -> prune high error or low confidence outliers
-
-## Deep Learning Model Deployment Workflows
-
-* Gradio currently preferred 
 
 ## Building a Deep Learning Model
 
