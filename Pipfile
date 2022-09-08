@@ -16,6 +16,10 @@ ipython = "*"
 jupyter = "*"
 scikit-learn = "*"
 torchmetrics = "*"
+fastdownload = "*"
+fastai = "*"
+duckduckgo-search = "*"
+fastcore = "*"
 
 [dev-packages]
 
