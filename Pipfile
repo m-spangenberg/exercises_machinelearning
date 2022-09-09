@@ -13,6 +13,7 @@ fastai = "*"
 duckduckgo-search = "*"
 fastcore = "*"
 gradio = "*"
+timm = "*"
 
 [dev-packages]
 
