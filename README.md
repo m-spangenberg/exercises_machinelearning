@@ -70,7 +70,7 @@ In the late 50's, [Art Samuel](https://en.wikipedia.org/wiki/Arthur_Samuel) said
     * Essentially a predictive activity
     * Assumes that the past predict the future
 
-Our interest is in extending generalization to the learning algorithm, so that it has the ability to make useful inferences about the world around it from the implicit patterns in its input data. The basic paradigm then is that we have data, which we feed to an algorithm, which produces a model, a sort of kernel of truth that is its understanding of a dataset, which can then be used to infer useful information from new data. This basic paradigm of predictions and classifications has two variations, the **supervised** and the **unsupervised** learning algorithm.
+The basic idea is that machine learning models attempt to fit functions to data, in order to recognize patterns. Our interest is in extending generalization to the learning algorithm, so that it has the ability to make useful inferences about the world around it from the implicit patterns in its input data. The basic paradigm then is that we have data, which we feed to an algorithm, which produces a model, a sort of kernel of truth that is its understanding of a dataset, which can then be used to infer useful information from new data. This basic paradigm of predictions and classifications has two variations, the **supervised** and the **unsupervised** learning algorithm.
 
 ## Supervised Learning
 
@@ -416,6 +416,15 @@ Pooling, also known as sub-sampling or down-sampling, is the next step. It's obj
 * Object Detection <-- specific object in an image or sequence of images
 * Multi-Class Classification <-- one type of data our of many, banana, apples, boots, cars, planes
 * Segmentation <-- sections of images with semantic masking
+
+**Natural Language Classification Problems**
+
+* Sentiment Analysis
+* Author Identification
+* Legal Discovery
+* Organizing Documents by Topics
+* Triaging streams of data (emails, comments)
+* ...many more!
 
 ## Deep Learning
 
