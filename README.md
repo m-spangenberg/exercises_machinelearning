@@ -388,6 +388,15 @@ To remedy the VGP problem, we can employ two variants of Recurring Neural Networ
 
 Both these variants are capable of learning long-term dependencies using mechanisms called `gates`. These gates are [tensor](https://en.wikipedia.org/wiki/Tensor) operations that can learn what to add or remove from the hidden state of the feedback loop.
 
+**Natural Language Classification Problems**
+
+* Sentiment Analysis
+* Author Identification
+* Legal Discovery
+* Organizing Documents by Topics
+* Triaging streams of data (emails, comments)
+* ...many more!
+
 ### **Convolutional Neural Networks ([CNN](https://en.wikipedia.org/wiki/Convolutional_neural_network))**
 
 * **Applications of CNNs**
@@ -416,15 +425,6 @@ Pooling, also known as sub-sampling or down-sampling, is the next step. It's obj
 * Object Detection <-- specific object in an image or sequence of images
 * Multi-Class Classification <-- one type of data our of many, banana, apples, boots, cars, planes
 * Segmentation <-- sections of images with semantic masking
-
-**Natural Language Classification Problems**
-
-* Sentiment Analysis
-* Author Identification
-* Legal Discovery
-* Organizing Documents by Topics
-* Triaging streams of data (emails, comments)
-* ...many more!
 
 ## Deep Learning
 
